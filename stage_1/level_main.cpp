@@ -21,7 +21,7 @@ int y_vel = 0;
 
 //updates canvas
 void draw_all(){
-    window.clear();
+    window.clear(sf::Color(9,9,9,255));
     window.draw(player);
     for (size_t i = 0; i < mobs.size(); i++){
     	window.draw(mobs[i]);}
@@ -55,16 +55,16 @@ void system_events(){
 //keyboard inputs (pressed)
 void key_pressed_events(){
     if(event.key.code == sf::Keyboard::Left){
-        move_sprite(player, x_vel, y_vel, -2, -5, window_x, window_y);}
+        move_sprite(player, x_vel, y_vel, -2,0, -5, window_x, window_y);}
 
     else if(event.key.code == sf::Keyboard::Right){
-        move_sprite(player, x_vel, y_vel, 2, 5, window_x, window_y);}
+        move_sprite(player, x_vel, y_vel, 2,0, 5, window_x, window_y);}
 
     else if(event.key.code == sf::Keyboard::Down){
-        move_sprite(player, x_vel, y_vel, -4, -4, window_x, window_y);}
+        move_sprite(player, x_vel, y_vel,0, 2, 5, window_x, window_y);}
  
     else if(event.key.code == sf::Keyboard::Up){
-        move_sprite(player, x_vel, y_vel, 4, 4, window_x, window_y);}
+        move_sprite(player, x_vel, y_vel,0, -2,- 5, window_x, window_y);}
 }
 
 //keyboard inputs (release)
@@ -76,7 +76,7 @@ void key_released_events(){
    else if(event.key.code == sf::Keyboard::Right){
         stop_sprite_x(player, x_vel, .5, window_x);}
 
-   else if(event.key.code == sf::Keyboard::Down){
+   else if(event.key.code == sf::Keyboard::Up){
         stop_sprite_y(player, y_vel, .5, window_y);}
  
    else if(event.key.code == sf::Keyboard::Down){
