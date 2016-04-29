@@ -13,13 +13,13 @@ void move_sprite(sf::Sprite & sprite, int & x_vel, int & y_vel, int vel, int max
 }
 
 void stop_sprite_x(sf::Sprite & sprite, int & x_vel, int accel, int & window_x){
-    x_vel -= x_vel * accel;
+    x_vel += x_vel * accel;
     sprite.move(x_vel, 0);
     x_vel = 0;
 }
 
 void stop_sprite_y(sf::Sprite & sprite, int & y_vel, int accel, int & window_y){
-    y_vel -= y_vel * accel;
+    y_vel += y_vel * accel;
     sprite.move(0, y_vel);
     //if(sprite.getPosition().y <= window_y){sprite.setPosition(sprite.getPosition().x, window_y);}
     y_vel = 0;
