@@ -74,6 +74,7 @@ void key_pressed_events(){
 
 //keyboard inputs (release)
 void key_released_events(){
+    /*
    if(event.key.code == sf::Keyboard::Left){
         stop_sprite_x(player, x_vel, .5, window_x);}
 
@@ -85,6 +86,7 @@ void key_released_events(){
  
    else if(event.key.code == sf::Keyboard::Down){
         stop_sprite_y(player, y_vel, .5, window_y);} 
+        */
 }
 
 //main function

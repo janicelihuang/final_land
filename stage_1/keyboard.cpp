@@ -21,7 +21,8 @@ void stop_sprite_x(sf::Sprite & sprite, int & x_vel, int accel, int & window_x){
 void stop_sprite_y(sf::Sprite & sprite, int & y_vel, int accel, int & window_y){
     y_vel -= y_vel * accel;
     sprite.move(0, y_vel);
-    if(sprite.getPosition().y <= window_y){sprite.setPosition(sprite.getPosition().x, window_y);}
+    //if(sprite.getPosition().y <= window_y){sprite.setPosition(sprite.getPosition().x, window_y);}
+    y_vel = 0;
 } 
 
 
