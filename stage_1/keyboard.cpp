@@ -2,14 +2,6 @@
 #include <iostream>
 
 
-void gravity(sf::Shape shape, int & x_move, int & y_move, int window_x, int window_y){
-    /*
-    while(){
-
-    )
-    */
-}
-
 void move_sprite(sf::Sprite & sprite, int & x_vel, int & y_vel, int vel, int max_vel){
     sprite.move(x_vel, y_vel);
     x_vel += vel;

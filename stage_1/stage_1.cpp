@@ -1,19 +1,22 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
+#include "keyboard.cpp"
 
 using namespace std;
 
 //global variables
-private:
-    int window_x = 1000;
-    int window_y = 650;
+int window_x = 1000;
+int window_y = 650;
 
-    sf::Event event; 
-    sf::RenderWindow window(sf::VideoMode(window_x, window_y), "Stage_1");
-   
-    sf::Sprite player;
-    std::vector<sf::Sprite> mobs;
+sf::Event event; 
+sf::RenderWindow window(sf::VideoMode(window_x, window_y), "Stage_1");
+
+sf::Sprite player;
+std::vector<sf::Sprite> mobs;
+
+int x_vel = 0;
+int y_vel = 0;
 
 //updates canvas
 void draw_all(){
@@ -42,7 +45,7 @@ void initialize_mobs(){
         sf::Sprite mob(mob_texture);
         mob.setTextureRect(sf::IntRect(10,10,50,30));
         mob.setColor(sf::Color(255, 0, 0, 200));
-        mob.setPosition(rand()%10,25);	
+        mob.setPosition(rand() % 10, 25);	
         mobs.push_back(mob);}
 }
 
@@ -57,18 +60,18 @@ void system_events(){
 //keyboard inputs (pressed)
 void key_pressed_events(){
     if(event.key.code == sf::Keyboard::Left){
-        move_sprite(player, x_move, 0, -2, -5);}
+        move_sprite(player, x_vel, y_vel, -2, -5);}
 
     else if(event.key.code == sf::Keyboard::Right){
-        move_sprite(player, x_move, 0, 2, 5);}
+        move_sprite(player, x_vel, y_vel, 2, 5);}
 }
 
 //keyboard inputs (release)
 void key_released_events(){
    if(event.key.code == sf::Keyboard::Left){
-        stop_shape_x(player, x_vel, y_vel, .5);
+        stop_shape_x(player, x_vel, y_vel, .5);}
    else if(event.key.code == sf::Keyboard::Right){
-        stop_shape.x(player, x_vel, y_vel, .5);
+        stop_shape.x(player, x_vel, y_vel, .5);}
 }
 
 //main function
