@@ -1,6 +1,3 @@
-//Author: jchang82
-//Date: 4-26-16
-
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
@@ -9,18 +6,17 @@
 using namespace std;
 
 //global variables
-int window_x = 1000;
-int window_y = 650;
-int shape_size = 10;
+private:
+    int window_x = 1000;
+    int window_y = 650;
+    int shape_size = 10;
 
-std::vector<sf::CircleShape>::iterator it;
+    sf::Event event; 
+    sf::RectangleShape square;
+    sf::RenderWindow window(sf::VideoMode(window_x, window_y), "Stage_1");
 
-sf::Event event; 
-sf::RectangleShape square;
-sf::RenderWindow window(sf::VideoMode(window_x, window_y), "Test_Home_Block");
-
-float x_move = 0;
-float y_move = 0;
+    float x_move = 0;
+    float y_move = 0;
 
 //updates canvas
 void draw_all(){
