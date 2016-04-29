@@ -9,29 +9,45 @@ using namespace std;
 private:
     int window_x = 1000;
     int window_y = 650;
-    int shape_size = 10;
 
     sf::Event event; 
-    sf::RectangleShape square;
     sf::RenderWindow window(sf::VideoMode(window_x, window_y), "Stage_1");
-
-    float x_move = 0;
-    float y_move = 0;
+   
+    sf::Sprite player;
+    std::vector<sf::Sprite> mobs;
 
 //updates canvas
 void draw_all(){
     window.clear();
-    window.draw(square);
+    window.draw(player);
+    for (size_t i = 0; i < mobs.size(); i++)
+	window.draw(mobs[i]);
     window.display();
 }
 
 //initializes square (user)
-void initialize_square(){
-    square.setSize(sf::Vector2f(shape_size, shape_size));
-    square.setFillColor(sf::Color(198, 113, 113));
-    square.setPosition(window_x / 2, window_y - shape_size);
+void initialize_player(){
+    sf::Texture player_texture;
+    player_texture.loadFromFile("player.png");
+    player.setTexture(player_texture);
+    player.setTextureRect(sf::IntRect(10,10,50,30));
+    player.setColor(sf::Color(255,255,255,200));
+    player.setPosition(100,25);
 }
 
+void initialize_mobs(){
+    sf::Texture mob_texture;
+    mob_texture.loadFromFile("mob.png");
+
+    for(int i = 0; i <5; i++)
+    {
+	sf::Sprite mob(mob_texture);
+	mob.setTextureRect(sf::IntRect(10,10,50,30));
+	mob.setColor(sf::Color(255, 0, 0, 200));
+	mob.setPosition(rand()%10,25);	
+	mobs.push_back(mob);
+    }
+}
 //checks for system events
 void system_events(){
     if(event.type == sf::Event::Closed){window.close();}
@@ -74,7 +90,8 @@ void set_square_position(){
 //main function
 int main(){
     srand(time(NULL));
-    initialize_square();
+    initialize_player();
+    initialize_mobs();
 
     while(window.isOpen()){
         event = sf::Event();
