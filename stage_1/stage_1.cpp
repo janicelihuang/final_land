@@ -1,7 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
-#include <keyboard.cpp>
 
 using namespace std;
 
