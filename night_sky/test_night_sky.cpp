@@ -85,20 +85,24 @@ void key_pressed_events(){
        
        it = stars.begin();
        while(it != stars.end()){
-            it -> move(x_move / 4, 0);
+            it -> move(x_move / -4, 0);
             it -> setFillColor(sf::Color(rand() % (255 + 1 - 240) + 240,
                     rand() % (255 + 1 - 240) + 240,
                     rand() % (255 + 1 - 240) + 240));
+           if(it -> getPosition().x > window_x){
+                it -> setPosition(0, it -> getPosition().y);}
             ++it;}
     }
 
     else if(event.key.code == sf::Keyboard::A){
        it = stars.begin();
        while(it != stars.end()){
-            it -> move(6 / -4, 0);
+            it -> move(6 / 4, 0);
             it -> setFillColor(sf::Color(rand() % (255 + 1 - 240) + 240,
                     rand() % (255 + 1 - 240) + 240,
                     rand() % (255 + 1 - 240) + 240));
+           if(it -> getPosition().x > window_x){
+                it -> setPosition(0, it -> getPosition().y);}
             ++it;}
     }
 
@@ -109,20 +113,24 @@ void key_pressed_events(){
 
        it = stars.begin();
        while(it != stars.end()){
-           it -> move(x_move / 4, 0);
+           it -> move(x_move / -4, 0);
            it -> setFillColor(sf::Color(rand() % (255 + 1 - 240) + 240,
                 rand() % (255 + 1 - 240) + 240,
                 rand() % (255 + 1 - 240) + 240));
+           if(it -> getPosition().x < 0){
+                it -> setPosition(window_x, it -> getPosition().y);} 
            ++it;}
     }
 
     else if(event.key.code == sf::Keyboard::D){
        it = stars.begin();
        while(it != stars.end()){
-            it -> move(6 / 4, 0);
+            it -> move(6 / -4, 0);
             it -> setFillColor(sf::Color(rand() % (255 + 1 - 240) + 240,
                     rand() % (255 + 1 - 240) + 240,
                     rand() % (255 + 1 - 240) + 240));
+            if(it -> getPosition().x < 0){
+                it -> setPosition(window_x, it -> getPosition().y);}
             ++it;}
     }
 
