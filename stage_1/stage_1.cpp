@@ -69,9 +69,9 @@ void key_pressed_events(){
 //keyboard inputs (release)
 void key_released_events(){
    if(event.key.code == sf::Keyboard::Left){
-        stop_shape_x(player, x_vel, y_vel, .5);}
+        stop_sprite_x(player, x_vel, y_vel, .5);}
    else if(event.key.code == sf::Keyboard::Right){
-        stop_shape.x(player, x_vel, y_vel, .5);}
+        stop_sprite_x(player, x_vel, y_vel, .5);}
 }
 
 //main function

@@ -4,8 +4,8 @@
 
 void move_sprite(sf::Sprite & sprite, int & x_vel, int & y_vel, int vel, int max_vel){
     sprite.move(x_vel, y_vel);
-    x_vel += vel;
-    y_vel += vel;
+    x_vel += (y_vel == 0)? vel : 0;
+    y_vel += (x_vel == 0)? vel : 0;
     if(x_vel <= 0 && x_vel <= max_vel ||
             x_vel > 0 && x_vel >= max_vel){x_vel = max_vel;}
     if(y_vel <= 0 && y_vel <= max_vel ||
