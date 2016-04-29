@@ -5,4 +5,4 @@ class character: public sf::Sprite{
         int mass;
         int health;
         int attack_dmg;
-}
+};
