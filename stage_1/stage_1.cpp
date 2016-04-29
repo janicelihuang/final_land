@@ -60,18 +60,31 @@ void system_events(){
 //keyboard inputs (pressed)
 void key_pressed_events(){
     if(event.key.code == sf::Keyboard::Left){
-        move_sprite(player, x_vel, y_vel, -2, -5);}
+        move_sprite(player, x_vel, y_vel, -2, -5, window_x, window_y);}
 
     else if(event.key.code == sf::Keyboard::Right){
-        move_sprite(player, x_vel, y_vel, 2, 5);}
+        move_sprite(player, x_vel, y_vel, 2, 5, window_x, window_y);}
+
+    else if(event.key.code == sf::Keyboard::Down){
+        move_sprite(player, x_vel, y_vel, -4, -4, window_x, window_y);}
+ 
+    else if(event.key.code == sf::Keyboard::Up){
+        move_sprite(player, x_vel, y_vel, 4, 4, window_x, window_y);}
 }
 
 //keyboard inputs (release)
 void key_released_events(){
    if(event.key.code == sf::Keyboard::Left){
-        stop_sprite_x(player, x_vel, y_vel, .5);}
+        stop_sprite_x(player, x_vel, .5, window_x);}
+
    else if(event.key.code == sf::Keyboard::Right){
-        stop_sprite_x(player, x_vel, y_vel, .5);}
+        stop_sprite_x(player, x_vel, .5, window_x);}
+
+   else if(event.key.code == sf::Keyboard::Down){
+        stop_sprite_y(player, y_vel, .5, window_y);}
+ 
+   else if(event.key.code == sf::Keyboard::Down){
+        stop_sprite_y(player, y_vel, .5, window_y);} 
 }
 
 //main function
