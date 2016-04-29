@@ -5,5 +5,7 @@ stage_main.o :
 	g++ -c character.cpp
 	g++ level_main.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
 
+all: $(OBJS) clean
+
 clean : 
 	-rm -f *.o $(EXENAME)
