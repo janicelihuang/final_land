@@ -14,7 +14,8 @@ sf::RenderWindow window(sf::VideoMode(window_x, window_y), "Stage_1");
 
 sf::Sprite player;
 std::vector<sf::Sprite> mobs;
-
+sf::Texture player_texture;
+sf::Texture mob_texture;   
 int x_vel = 0;
 int y_vel = 0;
 
@@ -29,23 +30,17 @@ void draw_all(){
 
 //initializes square (user)
 void initialize_player(){
-    sf::Texture player_texture;
     player_texture.loadFromFile("player.png");
     player.setTexture(player_texture);
-    player.setTextureRect(sf::IntRect(10, 10, 50, 30));
-    player.setColor(sf::Color(255, 255, 255, 200));
     player.setPosition(100, 25);
 }
 
 void initialize_mobs(){
-    sf::Texture mob_texture;
     mob_texture.loadFromFile("mob.png");
 
     for(int i = 0; i < 5; i++){
         sf::Sprite mob(mob_texture);
-        mob.setTextureRect(sf::IntRect(10,10,50,30));
-        mob.setColor(sf::Color(255, 0, 0, 200));
-        mob.setPosition(rand() % 10, 25);	
+        mob.setPosition(rand() % 10, 25);
         mobs.push_back(mob);}
 }
 
