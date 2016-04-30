@@ -30,9 +30,9 @@ void draw_all(){
 
 //initializes square (user)
 void initialize_player(){
-    player_texture.loadFromFile("player.png");
+    player_texture.loadFromFile("player1.png");
     player.setTexture(player_texture);
-    player.setPosition(100, 25);
+    player.setPosition(100, 540);
 }
 
 void initialize_mobs(){
@@ -40,7 +40,7 @@ void initialize_mobs(){
 
     for(int i = 0; i < 5; i++){
         sf::Sprite mob(mob_texture);
-        mob.setPosition(rand() % 10, 25);
+        mob.setPosition(rand() % 10, 450);
         mobs.push_back(mob);}
 }
 
