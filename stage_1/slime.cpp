@@ -2,15 +2,20 @@
 #include <iostream>
 class Slime: public sf::Sprite{
     public:
-        int mass; //kg
-        int health;
-        int attack_dmg; 
+        int mass, health, attack_dmg; 
+        int sprite_x, sprite_y;
+        int sprite_width, sprite_height;
         sf::Texture texture;
+        sf::FloatRect scale;
 
         Slime(){
-            std::cout << "slime" << std::endl;
             texture.loadFromFile("slime.png");
-            setTexture(texture);}
+            setTexture(texture);
+            scale = getGlobalBounds();
+            sprite_x = scale.left;
+            sprite_y = scale.top;
+            sprite_width = scale.width;
+            sprite_height = scale.height;}
 /*
         //copy constructor
         Slime(const Slime & slime){

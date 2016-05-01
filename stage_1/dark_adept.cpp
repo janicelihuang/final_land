@@ -9,7 +9,6 @@ class Dark_Adept: public sf::Sprite{
         sf::Texture texture;
 
         Dark_Adept(){
-            std::cout << "works" << std::endl;
             texture.loadFromFile("dark_adept.png");
             setTexture(texture);}
 };

@@ -37,7 +37,7 @@ void initialize_player(){
 void initialize_mobs(){
     for(int i = 0; i < 5; i++){
         Slime *slime = new Slime();
-        slime -> setPosition(rand() % window_x, window_y - 50); //TODO: fix hardcode
+        slime -> setPosition(rand() % window_x, window_y - slime -> sprite_height); //TODO: fix hardcode
         slimes.push_back(slime);}
 }
 
