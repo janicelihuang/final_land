@@ -4,6 +4,7 @@
 #include "keyboard.cpp"
 #include "dark_adept.cpp"
 #include "slime.cpp"
+#include "utils.cpp"
 
 using namespace std;
 
@@ -57,10 +58,12 @@ void system_events(){
 //keyboard inputs (pressed)
 void key_pressed_events(){
     if(event.key.code == sf::Keyboard::Left){
-        move_sprite(*player, x_vel, y_vel, -2,0, -5, window_x, window_y);}
+        move_sprite(*player, x_vel, y_vel, -2,0, -5, window_x, window_y);
+        flip_sprite(*player);}
 
     else if(event.key.code == sf::Keyboard::Right){
-        move_sprite(*player, x_vel, y_vel, 2,0, 5, window_x, window_y);}
+        move_sprite(*player, x_vel, y_vel, 2,0, 5, window_x, window_y);
+        flip_sprite(*player);}
 
     else if(event.key.code == sf::Keyboard::Down){
         move_sprite(*player, x_vel, y_vel,0, 2, 5, window_x, window_y);}
