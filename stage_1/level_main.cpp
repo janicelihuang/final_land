@@ -2,6 +2,8 @@
 #include <iostream>
 #include <vector>
 #include "keyboard.cpp"
+#include "dark_adept.cpp"
+#include "slime.cpp"
 
 using namespace std;
 
@@ -12,36 +14,31 @@ int window_y = 650;
 sf::Event event; 
 sf::RenderWindow window(sf::VideoMode(window_x, window_y), "Stage_1");
 
-sf::Sprite player;
-std::vector<sf::Sprite> mobs;
-sf::Texture player_texture;
-sf::Texture mob_texture;   
+Dark_Adept player;
+std::vector<Slime *> slimes;
+
 int x_vel = 0;
 int y_vel = 0;
 
 //updates canvas
 void draw_all(){
     window.clear(sf::Color(9,9,9,255));
+    for (size_t i = 0; i < slimes.size(); i++){
+    	window.draw(*(slimes[i]));}
     window.draw(player);
-    for (size_t i = 0; i < mobs.size(); i++){
-    	window.draw(mobs[i]);}
     window.display();
 }
 
 //initializes square (user)
 void initialize_player(){
-    player_texture.loadFromFile("player1.png");
-    player.setTexture(player_texture);
     player.setPosition(100, 540);
 }
 
 void initialize_mobs(){
-    mob_texture.loadFromFile("mob.png");
-
     for(int i = 0; i < 5; i++){
-        sf::Sprite mob(mob_texture);
-        mob.setPosition(rand() % 10, 450);
-        mobs.push_back(mob);}
+        Slime *slime = new Slime();
+        slime -> setPosition(rand() % window_x, window_y - 50); //TODO: fix hardcode
+        slimes.push_back(slime);}
 }
 
 //checks for system events
