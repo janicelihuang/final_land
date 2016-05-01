@@ -1,23 +1,20 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "extended_sprite.cpp"
+#pragma once
 
-class Dark_Adept: public Extended_Sprite{
+class Extended_Sprite: public sf::Sprite{
     public:
-        /*
         int mass, health, attack_dmg;
         int sprite_x, sprite_y;
         int sprite_width, sprite_height;
         sf::Texture texture;
         sf::FloatRect scale;
-        */
 
-        Dark_Adept(){
-            texture.loadFromFile("dark_adept.png");
-            setTexture(texture);
+        Extended_Sprite(){
             scale = getGlobalBounds();
             sprite_x = scale.left;
             sprite_y = scale.top;
             sprite_width = scale.width;
-            sprite_height = scale.height;}
+            sprite_height = scale.height;
+        }
 };

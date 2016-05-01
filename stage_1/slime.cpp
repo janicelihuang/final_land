@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-class Slime: public sf::Sprite{
+#include "extended_sprite.cpp"
+
+class Slime: public Extended_Sprite{
     public:
         int mass, health, attack_dmg; 
         int sprite_x, sprite_y;
