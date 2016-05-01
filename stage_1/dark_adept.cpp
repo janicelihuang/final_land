@@ -3,12 +3,18 @@
 
 class Dark_Adept: public sf::Sprite{
     public:
-        int mass;
-        int health;
-        int attack_dmg;
+        int mass, health, attack_dmg;
+        int sprite_x, sprite_y;
+        int sprite_width, sprite_height;
         sf::Texture texture;
+        sf::FloatRect scale;
 
         Dark_Adept(){
             texture.loadFromFile("dark_adept.png");
-            setTexture(texture);}
+            setTexture(texture);
+            scale = getGlobalBounds();
+            sprite_x = scale.left;
+            sprite_y = scale.top;
+            sprite_width = scale.width;
+            sprite_height = scale.height;}
 };
