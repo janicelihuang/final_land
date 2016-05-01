@@ -23,13 +23,17 @@ int x_vel = 0;
 int y_vel = 0;
 
 
-//check if sprites move off the screen
+//check if sprites move off the screen TODO: y-direction
 void check_sprite_bounds(){
-    //if(player.
+    sf::Vector2f pos = player -> getPosition();
+    if(pos.x < 0){
+        player -> setPosition(0, pos.y);}
+    else if(pos.x > window_x - player -> sprite_width){
+       player -> setPosition(window_x - player -> sprite_width, pos.y);}
 }
 //updates canvas
 void draw_all(){
-    window.clear(sf::Color(9,9,9,255));
+    window.clear(sf::Color(0, 0, 0, 255));
     for (size_t i = 0; i < slimes.size(); i++){
     	window.draw(*(slimes[i]));}
     window.draw(*player);
@@ -59,11 +63,11 @@ void system_events(){
 //keyboard inputs (pressed)
 void key_pressed_events(){
     if(event.key.code == sf::Keyboard::Left){
-        move_sprite(*player, x_vel, y_vel, -2,0, -5, window_x, window_y);
+        move_sprite(*player, x_vel, y_vel, -4,0, -5, window_x, window_y);
         flip_sprite_left(*player);}
 
     else if(event.key.code == sf::Keyboard::Right){
-        move_sprite(*player, x_vel, y_vel, 2,0, 5, window_x, window_y);
+        move_sprite(*player, x_vel, y_vel, 4,0, 5, window_x, window_y);
         flip_sprite_right(*player);}
 
     else if(event.key.code == sf::Keyboard::Down){
