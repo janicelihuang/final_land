@@ -36,7 +36,7 @@ void draw_all(){
 
 //initializes square (user)
 void initialize_player(){
-    player -> setPosition(player -> sprite_width, player -> sprite_width);
+    player -> setPosition(0, window_y - 0.5 * player -> sprite_height);
 }
 
 void initialize_mobs(){
