@@ -72,14 +72,14 @@ grid_counter = 0;
 for(size_t i = 0; i < x_lines_v.size(); i += 2){
     x_lines_v[i][0] = sf::Vector2f(grid_counter, 0);
     x_lines_v[i][1] = sf::Vector2f(grid_counter, window_y);
-    grid_counter += window_x / 10;}
+    grid_counter += window_x / 50;}
 
 grid_counter = 0;
 
 for(size_t i = 0; i < y_lines_v.size(); i++){
     y_lines_v[i][0] = sf::Vector2f(0, grid_counter);
     y_lines_v[i][1] = sf::Vector2f(window_x, grid_counter);
-    grid_counter += window_y / 10;}
+    grid_counter += window_y / 50;}
 }
 
 //updates canvas
