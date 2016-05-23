@@ -1,34 +1,9 @@
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include <vector>
-#include <math.h>
-#include "keyboard.cpp"
-#include "dark_adept.cpp"
-#include "slime.cpp"
-#include "utils.cpp"
-#include "extended_sprite.cpp"
+#include "level_main.h"
 
 #define PI 3.14159265
+#define block_unit 50
 
 using namespace std;
-
-//global variables
-int window_x = 1000;
-int window_y = 650;
-
-sf::Event event; 
-sf::RenderWindow window(sf::VideoMode(window_x, window_y), "Stage_1");
-
-Dark_Adept * player = new Dark_Adept();
-std::vector<Slime *> slimes;
-
-float grid_counter = 0;
-std::vector<sf::VertexArray> x_lines_v;
-std::vector<sf::VertexArray> y_lines_v;
-
-int x_vel = 0;
-int y_vel = 0;
-
 
 void move_mobs(){
     sf::Vector2f pos = sf::Vector2f();
@@ -60,24 +35,24 @@ void check_sprite_bounds(){
 //draw grid lines
 void initialize_grid_lines(){
 
-for(size_t i = 0; i < window_x / 10; i++){
-    if(i < window_y){
-        y_lines_v.push_back(sf::VertexArray(sf::Lines, 2));}
-    x_lines_v.push_back(sf::VertexArray(sf::Lines, 2));}
+    for(size_t i = 0; i < window_x / 10; i++){
+        if(i < window_y){
+            y_lines_v.push_back(sf::VertexArray(sf::Lines, 2));}
+        x_lines_v.push_back(sf::VertexArray(sf::Lines, 2));}
 
-grid_counter = 0;
+    grid_counter = 0;
 
-for(size_t i = 0; i < x_lines_v.size(); i += 2){
-    x_lines_v[i][0] = sf::Vector2f(grid_counter, 0);
-    x_lines_v[i][1] = sf::Vector2f(grid_counter, window_y);
-    grid_counter += window_x / 50;}
+    for(size_t i = 0; i < x_lines_v.size(); i += 2){
+        x_lines_v[i][0] = sf::Vector2f(grid_counter, 0);
+        x_lines_v[i][1] = sf::Vector2f(grid_counter, window_y);
+        grid_counter += window_x / 50;}
 
-grid_counter = 0;
+    grid_counter = 0;
 
-for(size_t i = 0; i < y_lines_v.size(); i++){
-    y_lines_v[i][0] = sf::Vector2f(0, grid_counter);
-    y_lines_v[i][1] = sf::Vector2f(window_x, grid_counter);
-    grid_counter += window_y / 50;}
+    for(size_t i = 0; i < y_lines_v.size(); i++){
+        y_lines_v[i][0] = sf::Vector2f(0, grid_counter);
+        y_lines_v[i][1] = sf::Vector2f(window_x, grid_counter);
+        grid_counter += window_y / 50;}
 }
 
 //updates canvas
@@ -146,30 +121,5 @@ void key_released_events(){
         
 }
 
-//main function
-int main(){
-    srand(time(NULL));
-    initialize_grid_lines();
-    initialize_player();
-    initialize_mobs();
-    int debug_timer = 500;
-
-    while(window.isOpen() && debug_timer > 0){
-        event = sf::Event();
-
-        while(window.pollEvent(event)){
-            system_events();
-
-            if(event.type == sf::Event::KeyPressed){
-                key_pressed_events();}
-            if(event.type == sf::Event::KeyReleased){
-                key_released_events();}
-        }
-            move_mobs();
-            check_sprite_bounds();
-            draw_all();
-    }
-    return EXIT_SUCCESS;
-};
 
 
