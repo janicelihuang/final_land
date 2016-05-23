@@ -15,6 +15,7 @@ class Dark_Adept: public Extended_Sprite{
         Dark_Adept(){
             texture.loadFromFile("dark_adept.png");
             setTexture(texture);
+
             scale = getGlobalBounds();
             sprite_x = scale.left;
             sprite_y = scale.top;
