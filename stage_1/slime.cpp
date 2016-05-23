@@ -9,6 +9,7 @@ class Slime: public Extended_Sprite{
         int sprite_width, sprite_height;
         sf::Texture texture;
         sf::FloatRect scale;
+        int sin_degree;
 
         Slime(){
             texture.loadFromFile("slime.png");
@@ -17,7 +18,8 @@ class Slime: public Extended_Sprite{
             sprite_x = scale.left;
             sprite_y = scale.top;
             sprite_width = scale.width;
-            sprite_height = scale.height;}
+            sprite_height = scale.height;
+            sin_degree = 0;}
 /*
         //copy constructor
         Slime(const Slime & slime){
