@@ -23,8 +23,6 @@ Dark_Adept * player = new Dark_Adept();
 std::vector<Slime *> slimes;
 
 float grid_counter = 0;
-//sf::VertexArray x_lines(sf::Lines, window_y / 10);
-//sf::VertexArray y_lines(sf::Lines, window_x / 10);
 std::vector<sf::VertexArray> x_lines_v;
 std::vector<sf::VertexArray> y_lines_v;
 
