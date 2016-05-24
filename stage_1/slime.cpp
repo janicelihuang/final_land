@@ -9,6 +9,8 @@ class Slime: public Extended_Sprite{
         Slime(){
             texture.loadFromFile("slime.png");
             setTexture(texture);
+
+            setScale(.4, .4);
             scale = getGlobalBounds();
             sprite_x = scale.left;
             sprite_y = scale.top;

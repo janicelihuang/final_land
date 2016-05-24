@@ -14,10 +14,10 @@ void move_mobs(){
 
     for(size_t i = 0; i < slimes.size(); i++){
         pos = slimes[i] -> getPosition();
-        int slime_sin_height = slimes[i] -> sin_degree;
-        float new_height = original_y_pos[i] - (float)sin(slime_sin_height * PI / 180) / 10;
+        float slime_sin_height = (float)sin(slimes[i] -> sin_degree * PI / 180) * 5;
+        float new_height = (window_y - slimes[i] -> sprite_height) - (slime_sin_height);
         slimes[i] -> setPosition(pos.x, new_height); 
-        slimes[i] -> sin_degree += (slime_sin_height >= 360)? -1 * 360 : 2;
+        slimes[i] -> sin_degree += (slime_sin_height < 0)? 5 : 1;
     }
 }
 
@@ -56,12 +56,13 @@ void initialize_grid_lines(){
 //updates canvas
 void draw_all(){
     window.clear(sf::Color(0, 0, 0, 255));
-    for (size_t i = 0; i < slimes.size(); i++){
-    	window.draw(*(slimes[i]));}
-    window.draw(*player);
     for(size_t i = 0; i < x_lines_v.size(); i++){
         window.draw(x_lines_v[i]);
         window.draw(y_lines_v[i]);}
+
+    for (size_t i = 0; i < slimes.size(); i++){
+    	window.draw(*(slimes[i]));}
+    window.draw(*player);
     window.display();
 }
 
