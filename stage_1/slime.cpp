@@ -4,11 +4,6 @@
 
 class Slime: public Extended_Sprite{
     public:
-        int mass, health, attack_dmg; 
-        int sprite_x, sprite_y;
-        int sprite_width, sprite_height;
-        sf::Texture texture;
-        sf::FloatRect scale;
         int sin_degree;
 
         Slime(){
@@ -20,27 +15,5 @@ class Slime: public Extended_Sprite{
             sprite_width = scale.width;
             sprite_height = scale.height;
             sin_degree = 0;}
-/*
-        //copy constructor
-        Slime(const Slime & slime){
-                
-        }
-
-        //destructor helper class
-        void clear(){
-            delete 
-        }
-
-        //destructor
-        ~Slime(){
-
-        }
-
-        //assignment operator
-        Slime & operator=(const Slime & slime){
-
-        }
-*/
-
 };
 

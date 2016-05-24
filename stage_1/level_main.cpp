@@ -17,8 +17,6 @@ void move_mobs(){
         int slime_sin_height = slimes[i] -> sin_degree;
         float new_height = original_y_pos[i] - (float)sin(slime_sin_height * PI / 180) / 10;
         slimes[i] -> setPosition(pos.x, new_height); 
-       // std::cout << "original: " << original_y_pos[i] << std::endl;
-       // std::cout << "new height: " << new_height << std::endl;
         slimes[i] -> sin_degree += (slime_sin_height >= 360)? -1 * 360 : 2;
     }
 }

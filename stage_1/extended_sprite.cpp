@@ -11,6 +11,7 @@ class Extended_Sprite: public sf::Sprite{
         sf::FloatRect scale;
 
         Extended_Sprite(){
+            setScale(.1, .1);
             scale = getGlobalBounds();
             sprite_x = scale.left;
             sprite_y = scale.top;
