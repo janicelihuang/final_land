@@ -7,6 +7,7 @@ class Extended_Sprite: public sf::Sprite{
         int mass, health, attack_dmg;
         int sprite_x, sprite_y;
         int sprite_width, sprite_height;
+        bool direction; //0 = left, 1 = right
         sf::Texture texture;
         sf::FloatRect scale;
 

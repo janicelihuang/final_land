@@ -7,9 +7,9 @@ class Slime: public Extended_Sprite{
         int sin_degree;
 
         Slime(){
+            direction = rand() % 1;
             texture.loadFromFile("slime.png");
             setTexture(texture);
-
             setScale(.4, .4);
             scale = getGlobalBounds();
             sprite_x = scale.left;

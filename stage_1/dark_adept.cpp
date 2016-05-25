@@ -8,11 +8,13 @@ class Dark_Adept: public Extended_Sprite{
         int mass, health, attack_dmg;
         int sprite_x, sprite_y;
         int sprite_width, sprite_height;
+        bool direction;
         sf::Texture texture;
         sf::FloatRect scale;
         */
 
         Dark_Adept(){
+            direction = 1;
             texture.loadFromFile("dark_adept.png");
             setTexture(texture);
             setScale(.5, .5);
