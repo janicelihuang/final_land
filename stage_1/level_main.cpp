@@ -50,7 +50,7 @@ void initialize_grid_lines(){
     for(size_t i = 0; i < y_lines_v.size(); i++){
         y_lines_v[i][0] = sf::Vector2f(0, grid_counter);
         y_lines_v[i][1] = sf::Vector2f(window_x, grid_counter);
-        grid_counter += window_y / 50;}
+        grid_counter += window_y / 40;}
 }
 
 //updates canvas

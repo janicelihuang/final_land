@@ -2,6 +2,10 @@
 #define LEVEL_MAIN_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+#include <zlib.h>
+#include <tmx/MapLoader.h>
 #include <iostream>
 #include <vector>
 #include <math.h>
@@ -11,7 +15,7 @@
 #include "utils.cpp"
 #include "extended_sprite.cpp"
 using namespace std;
-
+    tmx::MapLoader m1("map_sample");
     //global variables
     int window_x = 1000;
     int window_y = 650;
