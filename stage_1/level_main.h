@@ -15,6 +15,7 @@
 #include "utils.cpp"
 #include "extended_sprite.cpp"
 using namespace std;
+
     tmx::MapLoader m1("map_sample");
     //global variables
     int window_x = 1000;
