@@ -30,9 +30,13 @@ using namespace std;
     float grid_counter = 0;
     std::vector<sf::VertexArray> x_lines_v;
     std::vector<sf::VertexArray> y_lines_v;
+    std::vector<sf::VertexArray> origin_line;
 
     int x_vel = 0;
     int y_vel = 0;
+
+//for_debug
+    void for_debug();
 
 //update position of mobs
     void move_mobs();
@@ -82,6 +86,7 @@ using namespace std;
             }
                 move_mobs();
                 check_sprite_bounds();
+                for_debug();
                 draw_all();
         }
         return EXIT_SUCCESS;

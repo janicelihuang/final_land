@@ -5,6 +5,16 @@
 
 using namespace std;
 
+void for_debug(){
+        if(!origin_line.empty()){
+            origin_line.clear();}
+        origin_line.push_back(sf::VertexArray(sf::Lines, 2));
+        sf::Vector2f origin = player -> getOrigin();
+        origin_line[0][0].position = sf::Vector2f(origin.x, origin.y);
+        origin_line[0][1].position = sf::Vector2f(origin.x, origin.y - window_y );
+        origin_line[0][0].color = origin_line[0][1].color = sf::Color::Green;
+}
+
 void move_mobs(){
     sf::Vector2f pos = sf::Vector2f();
     std::vector<int> original_y_pos;
@@ -21,13 +31,29 @@ void move_mobs(){
     }
 }
 
-//check if sprites move off the screen TODO: y-direction
+//check if sprites move off the screen
 void check_sprite_bounds(){
+    int sprite_width_var = player -> sprite_width;
+    int sprite_height_var = player -> sprite_height;
     sf::Vector2f pos = player -> getPosition();
+
     if(pos.x < 0){
         player -> setPosition(0, pos.y);}
-    else if(pos.x > window_x - player -> sprite_width){
-       player -> setPosition(window_x - player -> sprite_width, pos.y);}
+    else if(pos.x > window_x){
+        player -> setPosition(window_x - player -> sprite_width, pos.y);}
+
+    /*
+    if(!player -> direction){ //facing left
+        if(pos.x < 0){
+            player -> setPosition(0, pos.y);}
+        else if(pos.x > window_x - player -> sprite_width){
+            player -> setPosition(window_x - player -> sprite_width, pos.y);}
+    }
+    else if(player -> direction){ //facing right
+        if(pos.x < 0){
+            }
+    }
+    */
 }
 
 //draw grid lines
@@ -62,7 +88,11 @@ void draw_all(){
 
     for (size_t i = 0; i < slimes.size(); i++){
     	window.draw(*(slimes[i]));}
+
     window.draw(*player);
+        /*debug*/
+        window.draw(origin_line[0]);
+        /*debug*/
     window.display();
 }
 
@@ -117,7 +147,6 @@ void key_released_events(){
  
    else if(event.key.code == sf::Keyboard::Down){
         stop_sprite_y(*player, y_vel, .5, window_y);} 
-        
 }
 
 
