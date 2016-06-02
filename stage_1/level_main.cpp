@@ -6,13 +6,23 @@
 using namespace std;
 
 void for_debug(){
-        if(!origin_line.empty()){
-            origin_line.clear();}
-        origin_line.push_back(sf::VertexArray(sf::Lines, 2));
-        sf::Vector2f origin = player -> getOrigin();
-        origin_line[0][0].position = sf::Vector2f(origin.x, origin.y);
-        origin_line[0][1].position = sf::Vector2f(origin.x, origin.y - window_y );
-        origin_line[0][0].color = origin_line[0][1].color = sf::Color::Green;
+    for(size_t i = 0; i < slimes.size(); i++){
+        slimes[i] -> hit_box.clear();
+        slimes[i] -> update_bounds();}
+    player -> hit_box.clear();
+    player -> update_bounds();
+
+    for(size_t i = 0; i < 4; i++){
+        player -> hit_box.push_back(sf::VertexArray(sf::Lines, 2));}
+    for(size_t i = 0; i < slimes.size(); i++){
+        for(size_t j = 0; j < 4; j++){
+            slimes[i] -> hit_box.push_back(sf::VertexArray(sf::Lines, 2));}
+    }
+
+    for(size_t i = 0; i < slimes.size(); i++){
+       generate_hit_boxes(*(slimes[i]), slimes[i] -> hit_box);}
+    
+    generate_hit_boxes(*player, player -> hit_box);
 }
 
 void move_mobs(){
@@ -36,12 +46,13 @@ void check_sprite_bounds(){
     int sprite_width_var = player -> sprite_width;
     int sprite_height_var = player -> sprite_height;
     sf::Vector2f pos = player -> getPosition();
-
+/*
     if(pos.x < 0){
         player -> setPosition(0, pos.y);}
     else if(pos.x > window_x){
         player -> setPosition(window_x - player -> sprite_width, pos.y);}
-
+*/
+    
     /*
     if(!player -> direction){ //facing left
         if(pos.x < 0){
@@ -82,23 +93,27 @@ void initialize_grid_lines(){
 //updates canvas
 void draw_all(){
     window.clear(sf::Color(0, 0, 0, 255));
+
     for(size_t i = 0; i < x_lines_v.size(); i++){
         window.draw(x_lines_v[i]);
-        window.draw(y_lines_v[i]);}
+        window.draw(y_lines_v[i]);
+        if(i < 4){
+            window.draw(player -> hit_box[i]);}
+    }
 
     for (size_t i = 0; i < slimes.size(); i++){
-    	window.draw(*(slimes[i]));}
+        for(size_t j = 0; j < 4; j++){
+            window.draw((slimes[i] -> hit_box)[j]);}
+    	window.draw(*(slimes[i]));
+    }
 
     window.draw(*player);
-        /*debug*/
-        window.draw(origin_line[0]);
-        /*debug*/
     window.display();
 }
 
 //initializes square (user)
 void initialize_player(){
-    player -> setPosition(0, window_y - 0.5 * player -> sprite_height);
+    player -> setPosition(0, window_y - player -> sprite_height);
 }
 
 void initialize_mobs(){
@@ -131,6 +146,7 @@ void key_pressed_events(){
  
     else if(event.key.code == sf::Keyboard::Up){
         move_sprite(*player, x_vel, y_vel,0, -2,- 5, window_x, window_y);}
+    
 }
 
 //keyboard inputs (release)

@@ -1,6 +1,6 @@
 stage_main.o :
-	g++ -c level_main.cpp
 	g++ -c level_main.h
+	g++ -c level_main.cpp
 	g++ -c keyboard.cpp
 	g++ -c utils.cpp
 	g++ -c slime.cpp

@@ -27,3 +27,24 @@ void flip_sprite_right(Extended_Sprite & sprite){
        sprite.direction = !sprite.direction;
         sprite.setOrigin(sprite.sprite_width, ori.y);}
 }
+
+//DEBUG PURPOSES//
+void generate_hit_boxes(Extended_Sprite & sprite, std::vector<sf::VertexArray> & hit_box){
+    sf::FloatRect sprite_scale = sprite.scale;
+    hit_box[0][0].position = sf::Vector2f(sprite_scale.left, sprite_scale.top);
+    hit_box[0][1].position = sf::Vector2f(sprite_scale.left + sprite_scale.width, sprite_scale.top);
+           
+    hit_box[1][0].position = sf::Vector2f(sprite_scale.left + sprite_scale.width, sprite_scale.top);
+    hit_box[1][1].position = sf::Vector2f(sprite_scale.left + sprite_scale.width, sprite_scale.top + sprite_scale.height);
+               
+    hit_box[2][0].position = sf::Vector2f(sprite_scale.left + sprite_scale.width, sprite_scale.top + sprite_scale.height);
+    hit_box[2][1].position = sf::Vector2f(sprite_scale.left, sprite_scale.top + sprite_scale.height);
+           
+    hit_box[3][0].position = sf::Vector2f(sprite_scale.left, sprite_scale.top + sprite_scale.height);
+    hit_box[3][1].position = sf::Vector2f(sprite_scale.left, sprite_scale.top);
+                   
+     for(size_t i = 0; i < 4; i++){
+       hit_box[i][0].color =
+         hit_box[i][1].color = sf::Color::Green;}
+
+}
