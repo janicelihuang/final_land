@@ -1,0 +1,8 @@
+<<6/1/2016>>
+- changed check_sprite_bounds() function in level_main.cpp (incomplete)
+- added generate_hit_box() function to utils.cpp
+- added hit_box (vector of VertexArray) to Extended_Sprite class 
+- added "direction" boolean variable to Extended_Sprite class
+  + for flipping sprite left/right
+- added for_debug() function to level_main.cpp
+- cropped out transperent pixels in dark_adept.png
