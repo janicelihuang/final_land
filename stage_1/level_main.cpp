@@ -96,13 +96,13 @@ void draw_all(){
     for(size_t i = 0; i < x_lines_v.size(); i++){
         window.draw(x_lines_v[i]);
         window.draw(y_lines_v[i]);
-        if(i < 4){
-            window.draw(player -> hit_box[i]);}
+        //if(i < 4){
+          //  window.draw(player -> hit_box[i]);}
     }
 
     for (size_t i = 0; i < slimes.size(); i++){
-        for(size_t j = 0; j < 4; j++){
-            window.draw((slimes[i] -> hit_box)[j]);}
+        //for(size_t j = 0; j < 4; j++){
+          //  window.draw((slimes[i] -> hit_box)[j]);}
     	window.draw(*(slimes[i]));
     }
 
