@@ -10,3 +10,10 @@
 <<6/3/2016>>
 - fixed x-axis check_sprite_bounds() function in level_main.cpp (incomplete, y-axis)
 - working on twitchy movement of character sprite
+
+<<6/6/2016>>
+- set window boundaries for character sprite (still edge cases to fix)
+- created [crude] player-tracking function in utils.cpp
+    + returns vector of -1, 0, or 1 depending on where the player is in relation to mob
+    + have not yet implemented second element of vector (first: x-pos, second: y-pos)
+    + changed move_mobs() in level_main.cpp to implement this function (1% chance per cycle that mobs will move)

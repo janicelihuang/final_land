@@ -39,6 +39,13 @@ void move_mobs(){
         slimes[i] -> setPosition(pos.x, new_height); 
         slimes[i] -> sin_degree += (slime_sin_height < 0)? 5 : 1;
     }
+
+    for(size_t i = 0; i < slimes.size(); i++){
+        pos = slimes[i] -> getPosition();
+        std::vector<int> result = guided_mob_movement(*player, *slimes[i]);
+        if(rand() % 100 >= 99){
+            slimes[i] -> setPosition(pos.x + result[0], pos.y);}
+    }
 }
 
 //check if sprites move off the screen
@@ -47,9 +54,10 @@ void check_sprite_bounds(){
     int sprite_height_var = player -> sprite_height;
     sf::Vector2f pos = player -> getPosition();
 
-    if(pos.x - sprite_width_var < 0){
+    //restrict player sprite movement
+    if(pos.x - sprite_width_var <= 0){
         player -> setPosition(sprite_width_var, pos.y);}
-    else if(pos.x + sprite_width_var > window_x){
+    else if(pos.x + sprite_width_var >= window_x){
         player -> setPosition(window_x - player -> sprite_width, pos.y);}
 
     if(pos.y + sprite_height_var >= window_y){
@@ -88,13 +96,13 @@ void draw_all(){
     for(size_t i = 0; i < x_lines_v.size(); i++){
         window.draw(x_lines_v[i]);
         window.draw(y_lines_v[i]);
-        //if(i < 4){
-          //  window.draw(player -> hit_box[i]);}
+        if(i < 4){
+            window.draw(player -> hit_box[i]);}
     }
 
     for (size_t i = 0; i < slimes.size(); i++){
-        //for(size_t j = 0; j < 4; j++){
-          //  window.draw((slimes[i] -> hit_box)[j]);}
+        for(size_t j = 0; j < 4; j++){
+            window.draw((slimes[i] -> hit_box)[j]);}
     	window.draw(*(slimes[i]));
     }
 
