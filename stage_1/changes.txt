@@ -6,3 +6,7 @@
   + for flipping sprite left/right
 - added for_debug() function to level_main.cpp
 - cropped out transperent pixels in dark_adept.png
+
+<<6/3/2016>>
+- fixed x-axis check_sprite_bounds() function in level_main.cpp (incomplete, y-axis)
+- working on twitchy movement of character sprite

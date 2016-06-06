@@ -46,25 +46,16 @@ void check_sprite_bounds(){
     int sprite_width_var = player -> sprite_width;
     int sprite_height_var = player -> sprite_height;
     sf::Vector2f pos = player -> getPosition();
-/*
-    if(pos.x < 0){
-        player -> setPosition(0, pos.y);}
-    else if(pos.x > window_x){
+
+    if(pos.x - sprite_width_var < 0){
+        player -> setPosition(sprite_width_var, pos.y);}
+    else if(pos.x + sprite_width_var > window_x){
         player -> setPosition(window_x - player -> sprite_width, pos.y);}
-*/
-    
-    /*
-    if(!player -> direction){ //facing left
-        if(pos.x < 0){
-            player -> setPosition(0, pos.y);}
-        else if(pos.x > window_x - player -> sprite_width){
-            player -> setPosition(window_x - player -> sprite_width, pos.y);}
-    }
-    else if(player -> direction){ //facing right
-        if(pos.x < 0){
-            }
-    }
-    */
+
+    if(pos.y + sprite_height_var >= window_y){
+        player -> setPosition(pos.x, window_y - sprite_height_var);}
+    else if(pos.y <= 0){
+        player -> setPosition(pos.x, 0);}
 }
 
 //draw grid lines
@@ -90,20 +81,20 @@ void initialize_grid_lines(){
         grid_counter += window_y / 40;}
 }
 
-//updates canvas
+//updates canvas...COMMENTED OUT CODE FOR DEBUG
 void draw_all(){
     window.clear(sf::Color(0, 0, 0, 255));
 
     for(size_t i = 0; i < x_lines_v.size(); i++){
         window.draw(x_lines_v[i]);
         window.draw(y_lines_v[i]);
-        if(i < 4){
-            window.draw(player -> hit_box[i]);}
+        //if(i < 4){
+          //  window.draw(player -> hit_box[i]);}
     }
 
     for (size_t i = 0; i < slimes.size(); i++){
-        for(size_t j = 0; j < 4; j++){
-            window.draw((slimes[i] -> hit_box)[j]);}
+        //for(size_t j = 0; j < 4; j++){
+          //  window.draw((slimes[i] -> hit_box)[j]);}
     	window.draw(*(slimes[i]));
     }
 
