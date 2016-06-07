@@ -14,6 +14,7 @@
 #include "slime.cpp"
 #include "utils.cpp"
 #include "extended_sprite.cpp"
+#include "map.cpp"
 using namespace std;
 
     //tmx::MapLoader m1("map_sample");
@@ -23,6 +24,7 @@ using namespace std;
 
     sf::Event event; 
     sf::RenderWindow window(sf::VideoMode(window_x, window_y), "Stage_1");
+    Stage_Map stage = Stage_Map(); 
 
     Dark_Adept * player = new Dark_Adept();
     std::vector<Slime *> slimes;
@@ -38,7 +40,7 @@ using namespace std;
     void for_debug();
 
 //update position of mobs
-    void move_mobs();
+    void move_slimes();
 
 //check if sprites move off the screen TODO: y-direction
     void check_sprite_bounds();
@@ -48,6 +50,15 @@ using namespace std;
 
 //updates canvas
     void draw_all();
+
+//initalize_map
+    void initialize_map();
+
+//draw_all helper functions
+    void draw_lines();
+    void draw_player();
+    void draw_mobs();
+    void draw_map();
 
 //initializes square (user)
     void initialize_player();
@@ -70,6 +81,7 @@ using namespace std;
         initialize_grid_lines();
         initialize_player();
         initialize_mobs();
+        initialize_map();
         int debug_timer = 500;
 
         while(window.isOpen() && debug_timer > 0){
@@ -83,7 +95,7 @@ using namespace std;
                 if(event.type == sf::Event::KeyReleased){
                     key_released_events();}
             }
-                move_mobs();
+                move_slimes();
                 check_sprite_bounds();
                 for_debug();
                 draw_all();

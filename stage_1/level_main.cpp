@@ -1,7 +1,7 @@
 #include "level_main.h"
 
 #define PI 3.14159265
-#define block_unit 50
+#define block_unit64 
 
 using namespace std;
 
@@ -25,7 +25,7 @@ void for_debug(){
     generate_hit_boxes(*player, player -> hit_box);
 }
 
-void move_mobs(){
+void move_slimes(){
     sf::Vector2f pos = sf::Vector2f();
     std::vector<int> original_y_pos;
 
@@ -89,32 +89,59 @@ void initialize_grid_lines(){
         grid_counter += window_y / 40;}
 }
 
-//updates canvas...COMMENTED OUT CODE FOR DEBUG
+//updates canvas
 void draw_all(){
     window.clear(sf::Color(0, 0, 0, 255));
+    draw_lines();
+    draw_player();
+    draw_mobs();
+    draw_map();
+    window.display();
+}
 
+//initialize tiles
+void initialize_map(){
+    for(size_t i = 0; i < window_x / 64; i++){
+        Tile * tile = new Tile(i * 64, window_y - 64, "ground_tile.png");
+        stage.tiles.push_back(tile);}
+}
+
+//draw_all helper function
+void draw_map(){
+    for(size_t i = 0; i < stage.tiles.size(); i++){
+        window.draw(*(stage.tiles[i]));}
+}
+
+//draw hit_boxes and grid_lines
+void draw_lines(){
     for(size_t i = 0; i < x_lines_v.size(); i++){
         window.draw(x_lines_v[i]);
         window.draw(y_lines_v[i]);
-        //if(i < 4){
-          //  window.draw(player -> hit_box[i]);}
-    }
+        if(i < 4){
+            //debug use
+            window.draw(player -> hit_box[i]);}}
+}
 
+//draw mob sprites
+void draw_mobs(){
     for (size_t i = 0; i < slimes.size(); i++){
-        //for(size_t j = 0; j < 4; j++){
-          //  window.draw((slimes[i] -> hit_box)[j]);}
-    	window.draw(*(slimes[i]));
-    }
+            for(size_t j = 0; j < 4; j++){
+                //debug use
+                window.draw((slimes[i] -> hit_box)[j]);}
+            window.draw(*(slimes[i]));}
+}
 
+//draw player sprite
+void draw_player(){
     window.draw(*player);
-    window.display();
 }
 
 //initializes square (user)
 void initialize_player(){
-    player -> setPosition(0, window_y - player -> sprite_height);
+    player -> setPosition(0, window_y - player -> sprite_height + 1);
 }
 
+//initializes mobs
 void initialize_mobs(){
     for(int i = 0; i < 5; i++){
         Slime *slime = new Slime();
