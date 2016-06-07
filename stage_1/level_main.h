@@ -14,7 +14,7 @@
 #include "slime.cpp"
 #include "utils.cpp"
 #include "extended_sprite.cpp"
-#include "map.cpp"
+#include "tile.cpp"
 using namespace std;
 
     //tmx::MapLoader m1("map_sample");
@@ -24,7 +24,8 @@ using namespace std;
 
     sf::Event event; 
     sf::RenderWindow window(sf::VideoMode(window_x, window_y), "Stage_1");
-    Stage_Map stage = Stage_Map(); 
+    std::vector<Tile *> hard_blocks;
+    std::vector<Tile *> soft_blocks;
 
     Dark_Adept * player = new Dark_Adept();
     std::vector<Slime *> slimes;

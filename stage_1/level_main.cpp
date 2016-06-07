@@ -43,7 +43,7 @@ void move_slimes(){
     for(size_t i = 0; i < slimes.size(); i++){
         pos = slimes[i] -> getPosition();
         std::vector<int> result = guided_mob_movement(*player, *slimes[i]);
-        if(rand() % 100 >= 99){
+        if(rand() % 100 >= 90){
             slimes[i] -> setPosition(pos.x + result[0], pos.y);}
     }
 }
@@ -64,6 +64,8 @@ void check_sprite_bounds(){
         player -> setPosition(pos.x, window_y - sprite_height_var);}
     else if(pos.y <= 0){
         player -> setPosition(pos.x, 0);}
+
+    //TODO:if(
 }
 
 //draw grid lines
@@ -95,21 +97,21 @@ void draw_all(){
     draw_lines();
     draw_player();
     draw_mobs();
-    draw_map();
+    //draw_map();
     window.display();
 }
 
 //initialize tiles
 void initialize_map(){
-    for(size_t i = 0; i < window_x / 64; i++){
-        Tile * tile = new Tile(i * 64, window_y - 64, "ground_tile.png");
-        stage.tiles.push_back(tile);}
+    for(size_t i = 0; i <= window_x / 16; i++){
+        Tile * tile = new Tile(i * 16, window_y - 16, "ground_tile.png");
+        hard_blocks.push_back(tile);}
 }
 
 //draw_all helper function
 void draw_map(){
-    for(size_t i = 0; i < stage.tiles.size(); i++){
-        window.draw(*(stage.tiles[i]));}
+    for(size_t i = 0; i < hard_blocks.size(); i++){
+        window.draw(*(hard_blocks[i]));}
 }
 
 //draw hit_boxes and grid_lines
@@ -119,7 +121,9 @@ void draw_lines(){
         window.draw(y_lines_v[i]);
         if(i < 4){
             //debug use
-            window.draw(player -> hit_box[i]);}}
+            //window.draw(player -> hit_box[i]);}
+            }
+}
 }
 
 //draw mob sprites
@@ -127,7 +131,8 @@ void draw_mobs(){
     for (size_t i = 0; i < slimes.size(); i++){
             for(size_t j = 0; j < 4; j++){
                 //debug use
-                window.draw((slimes[i] -> hit_box)[j]);}
+                //window.draw((slimes[i] -> hit_box)[j]);
+                }
             window.draw(*(slimes[i]));}
 }
 
@@ -138,7 +143,7 @@ void draw_player(){
 
 //initializes square (user)
 void initialize_player(){
-    player -> setPosition(0, window_y - player -> sprite_height + 1);
+    player -> setPosition(0, window_y - player -> sprite_height - 1);
 }
 
 //initializes mobs

@@ -24,3 +24,4 @@
 
 - NOTE: figure out how to slow down slime squishy
 - NOTE: figure out proper scaling for ground_tile png
+- NOTE: commented out draw_map() function (tentative tiling method)

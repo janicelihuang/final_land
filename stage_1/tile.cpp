@@ -7,7 +7,7 @@ class Tile: public sf::Sprite{
         Tile(int x, int y, std::string new_texture){
             texture.loadFromFile(new_texture);
             setTexture(texture);
-            setScale(.5, .5);
+            setScale(.25, .25);
             scale = getGlobalBounds();
             setPosition(sf::Vector2f(x, y));
         }
