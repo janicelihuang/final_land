@@ -86,9 +86,7 @@ using namespace std;
         initialize_player();
         initialize_mobs();
 
-        int debug_timer = 500;
-
-        while(window.isOpen() && debug_timer > 0){
+        while(window.isOpen()){
             event = sf::Event();
 
             while(window.pollEvent(event)){

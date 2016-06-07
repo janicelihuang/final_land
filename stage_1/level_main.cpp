@@ -46,7 +46,7 @@ void move_slimes(){
         slimes[i] -> prev_x = pos.x;
         slimes[i] -> prev_y = pos.y;
         std::vector<int> result = guided_mob_movement(*player, *slimes[i]);
-        if(rand() % 100 >= 99){
+        if(rand() % 100 >= 90){
             slimes[i] -> setPosition(pos.x + result[0], pos.y);}
     }
 }

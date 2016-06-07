@@ -27,3 +27,6 @@
 - NOTE: figure out proper scaling for ground_tile png
 - NOTE: commented out draw_map() function (tentative tiling method)
 - NOTE: speed of slimes may depend on machine clock speed...
+
+<<6/7/2016>>
+- changed chance of x-axis slime movement to 10%
