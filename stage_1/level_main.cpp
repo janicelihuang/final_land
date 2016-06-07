@@ -72,7 +72,7 @@ void check_sprite_bounds(){
 
     for(size_t i = 0; i < hard_blocks.size(); i++){
         if(player -> getGlobalBounds().intersects(hard_blocks[i] -> getGlobalBounds())){
-            player -> setPosition(prev_x, prev_y);}
+            player -> setPosition(player -> prev_x, player -> prev_y);}
     }
 
     //check for mob collision
@@ -137,11 +137,10 @@ void draw_lines(){
     for(size_t i = 0; i < x_lines_v.size(); i++){
         window.draw(x_lines_v[i]);
         window.draw(y_lines_v[i]);
-        if(i < 4){
+        if(i < 4 && debug_on){
             //debug use
-            //window.draw(player -> hit_box[i]);}
-            }
-}
+            window.draw(player -> hit_box[i]);}
+        }
 }
 
 //draw mob sprites
@@ -149,7 +148,8 @@ void draw_mobs(){
     for (size_t i = 0; i < slimes.size(); i++){
             for(size_t j = 0; j < 4; j++){
                 //debug use
-                //window.draw((slimes[i] -> hit_box)[j]);
+                if(debug_on)
+                    window.draw((slimes[i] -> hit_box)[j]);
                 }
             window.draw(*(slimes[i]));}
 }

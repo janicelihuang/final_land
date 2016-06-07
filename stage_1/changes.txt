@@ -30,3 +30,5 @@
 
 <<6/7/2016>>
 - changed chance of x-axis slime movement to 10%
+- added prev_x and prev_y fields to Extended_Sprite class 
+    + for sprite collisions: at intersection, revert to original position

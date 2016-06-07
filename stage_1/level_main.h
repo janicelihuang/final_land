@@ -36,8 +36,7 @@ using namespace std;
 
     int x_vel = 0;
     int y_vel = 0;
-    int prev_x = 0;
-    int prev_y = 0;
+    bool debug_on = false;
 
 //for_debug
     void for_debug();
@@ -92,8 +91,8 @@ using namespace std;
             while(window.pollEvent(event)){
                 system_events();
 
-                prev_x = player -> getPosition().x;
-                prev_y = player -> getPosition().y;
+                player -> prev_x = player -> getPosition().x;
+                player -> prev_y = player -> getPosition().y;
 
                 if(event.type == sf::Event::KeyPressed){
                     key_pressed_events();}
