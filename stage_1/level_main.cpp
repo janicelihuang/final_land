@@ -1,7 +1,7 @@
 #include "level_main.h"
 
 #define PI 3.14159265
-#define block_unit64 
+#define block_unit 64 
 
 using namespace std;
 
