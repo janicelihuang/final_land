@@ -35,15 +35,18 @@ void move_slimes(){
     for(size_t i = 0; i < slimes.size(); i++){
         pos = slimes[i] -> getPosition();
         float slime_sin_height = (float)sin(slimes[i] -> sin_degree * PI / 180) * 5;
-        float new_height = (window_y - slimes[i] -> sprite_height) - (slime_sin_height);
+        float new_height = (window_y - slimes[i] -> sprite_height - hard_blocks[0] -> sprite_height) - (slime_sin_height);
         slimes[i] -> setPosition(pos.x, new_height); 
         slimes[i] -> sin_degree += (slime_sin_height < 0)? 5 : 1;
     }
 
+    //track player
     for(size_t i = 0; i < slimes.size(); i++){
         pos = slimes[i] -> getPosition();
+        slimes[i] -> prev_x = pos.x;
+        slimes[i] -> prev_y = pos.y;
         std::vector<int> result = guided_mob_movement(*player, *slimes[i]);
-        if(rand() % 100 >= 90){
+        if(rand() % 100 >= 99){
             slimes[i] -> setPosition(pos.x + result[0], pos.y);}
     }
 }
@@ -65,7 +68,22 @@ void check_sprite_bounds(){
     else if(pos.y <= 0){
         player -> setPosition(pos.x, 0);}
 
-    //TODO:if(
+    pos = player -> getPosition();
+
+    for(size_t i = 0; i < hard_blocks.size(); i++){
+        if(player -> getGlobalBounds().intersects(hard_blocks[i] -> getGlobalBounds())){
+            player -> setPosition(prev_x, prev_y);}
+    }
+
+    //check for mob collision
+    
+    for(size_t i = 0; i < hard_blocks.size(); i++){
+        for(size_t j = 0; j < slimes.size(); j++){
+            if(hard_blocks[i] -> getGlobalBounds().intersects(slimes[j] -> getGlobalBounds())){
+                slimes[j] -> setPosition(slimes[j] -> prev_x, slimes[j] -> prev_y);}
+        }
+    }
+    
 }
 
 //draw grid lines
@@ -97,7 +115,7 @@ void draw_all(){
     draw_lines();
     draw_player();
     draw_mobs();
-    //draw_map();
+    draw_map();
     window.display();
 }
 
@@ -143,14 +161,14 @@ void draw_player(){
 
 //initializes square (user)
 void initialize_player(){
-    player -> setPosition(0, window_y - player -> sprite_height - 1);
+    player -> setPosition(20, window_y - player -> sprite_height - hard_blocks[0] -> sprite_height - 1);
 }
 
 //initializes mobs
 void initialize_mobs(){
     for(int i = 0; i < 5; i++){
         Slime *slime = new Slime();
-        slime -> setPosition(rand() % window_x, window_y - slime -> sprite_height);
+        slime -> setPosition(rand() % window_x, window_y - slime -> sprite_height - hard_blocks[0] -> sprite_height - 1);
         slimes.push_back(slime);}
 }
 

@@ -36,6 +36,8 @@ using namespace std;
 
     int x_vel = 0;
     int y_vel = 0;
+    int prev_x = 0;
+    int prev_y = 0;
 
 //for_debug
     void for_debug();
@@ -79,10 +81,11 @@ using namespace std;
 //main function
     int main(){
         srand(time(NULL));
+        initialize_map();
         initialize_grid_lines();
         initialize_player();
         initialize_mobs();
-        initialize_map();
+
         int debug_timer = 500;
 
         while(window.isOpen() && debug_timer > 0){
@@ -90,6 +93,9 @@ using namespace std;
 
             while(window.pollEvent(event)){
                 system_events();
+
+                prev_x = player -> getPosition().x;
+                prev_y = player -> getPosition().y;
 
                 if(event.type == sf::Event::KeyPressed){
                     key_pressed_events();}

@@ -21,7 +21,9 @@
 - created draw functions for each entity (player, mob, grid_lines, hit_boxes, etc)
 - created map.cpp and tile.cpp, with a Map containing a vector of pointers to Tiles
 - added new png, ground_tile.png
+- FIXED: sprite collision with ground tiles, in check_sprite_bounds() in level_main.cpp
 
 - NOTE: figure out how to slow down slime squishy
 - NOTE: figure out proper scaling for ground_tile png
 - NOTE: commented out draw_map() function (tentative tiling method)
+- NOTE: speed of slimes may depend on machine clock speed...
