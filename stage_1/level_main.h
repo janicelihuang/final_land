@@ -5,20 +5,13 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <zlib.h>
-//#include <tmx/MapLoader.h>
 #include <iostream>
 #include <vector>
-#include <math.h>
 #include "keyboard.cpp"
 #include "dark_adept.cpp"
 #include "slime.cpp"
-#include "utils.cpp"
 #include "extended_sprite.cpp"
-#include "tile.cpp"
 using namespace std;
-
-    //tmx::MapLoader m1("map_sample");
-    //global variables
     int window_x = 1000;
     int window_y = 650;
 
@@ -108,7 +101,6 @@ using namespace std;
                 check_sprite_bounds();
                 for_debug();
                 draw_all();
-                std::cout << x_vel << std::endl;
         }
         return EXIT_SUCCESS;
     };

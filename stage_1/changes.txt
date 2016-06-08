@@ -37,3 +37,8 @@
 
 - fixed jumping, but needs polishing
 - NOTE: must clean up code
+
+<<6/8/2016>>
+- Added Debug Switch: (Num1) 
+    + pressing Num1 will switch debug-mode on/off
+- divided logic of move_slime() amongst slime objects (slime.cpp)

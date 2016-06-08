@@ -30,24 +30,13 @@ void move_slimes(){
     std::vector<int> original_y_pos;
 
     for(size_t i = 0; i < slimes.size(); i++){
-        original_y_pos.push_back((slimes[i] -> getPosition()).y);}
-
-    for(size_t i = 0; i < slimes.size(); i++){
         pos = slimes[i] -> getPosition();
-        float slime_sin_height = (float)sin(slimes[i] -> sin_degree * PI / 180) * 5;
-        float new_height = (window_y - slimes[i] -> sprite_height - hard_blocks[0] -> sprite_height) - (slime_sin_height);
-        slimes[i] -> setPosition(pos.x, new_height); 
-        slimes[i] -> sin_degree += (slime_sin_height < 0)? 5 : 1;
+        slimes[i] -> move_slime(hard_blocks, window_y);
     }
 
-    //track player
+    //slimes follow player
     for(size_t i = 0; i < slimes.size(); i++){
-        pos = slimes[i] -> getPosition();
-        slimes[i] -> prev_x = pos.x;
-        slimes[i] -> prev_y = pos.y;
-        std::vector<int> result = guided_mob_movement(*player, *slimes[i]);
-        if(rand() % 100 >= 90){
-            slimes[i] -> setPosition(pos.x + result[0], pos.y);}
+        slimes[i] -> slime_track(*player);
     }
 }
 
@@ -125,19 +114,21 @@ void initialize_map(){
     for(size_t i = 0; i <= window_x / 16; i++){
         Tile * tile = new Tile(i * 16, window_y - 16, "ground_tile.png");
         hard_blocks.push_back(tile);}
-/*
+
     for (size_t i = 0; i <= window_x / 16; i++){
         for (size_t j = 0; j < window_y / 16; j++){
             Tile * tile = new Tile(i * 16, j * 16, "sky_tile.png");
             soft_blocks.push_back(tile);}
     }
-    */
 }
 
 //draw_all helper function
 void draw_map(){
-    for(size_t i = 0; i < soft_blocks.size(); i++){
-        window.draw(*(soft_blocks[i]));}
+    if(!debug_on){
+        for(size_t i = 0; i < soft_blocks.size(); i++){
+            window.draw(*(soft_blocks[i]));}
+    }
+
     for(size_t i = 0; i < hard_blocks.size(); i++){
         window.draw(*(hard_blocks[i]));}
 }
@@ -145,13 +136,13 @@ void draw_map(){
 //draw hit_boxes and grid_lines
 void draw_lines(){
     if(debug_on){
-    for(size_t i = 0; i < x_lines_v.size(); i++){
-        window.draw(x_lines_v[i]);
-        window.draw(y_lines_v[i]);
-        if(i < 4){
-            //debug use
-            window.draw(player -> hit_box[i]);}
-        }
+        for(size_t i = 0; i < x_lines_v.size(); i++){
+            window.draw(x_lines_v[i]);
+            window.draw(y_lines_v[i]);
+            if(i < 4){
+                //debug use
+                window.draw(player -> hit_box[i]);}
+            }
     }
 }
 
@@ -162,8 +153,9 @@ void draw_mobs(){
                 //debug use
                 if(debug_on)
                     window.draw((slimes[i] -> hit_box)[j]);
-                }
-            window.draw(*(slimes[i]));}
+            }
+        window.draw(*(slimes[i]));
+    }
 }
 
 //draw player sprite
@@ -206,6 +198,10 @@ void key_pressed_events(){
         y_vel = -5;
         grounded = false;
         move_sprite(*player, x_vel, y_vel, 0, 0);}
+
+    if(event.key.code == sf::Keyboard::Num1){
+        std::cout << debug_on << std::endl;
+        debug_on = !debug_on;}
 }
 
 //keyboard inputs (release)
