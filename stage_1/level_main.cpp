@@ -72,7 +72,8 @@ void check_sprite_bounds(){
 
     for(size_t i = 0; i < hard_blocks.size(); i++){
         if(player -> getGlobalBounds().intersects(hard_blocks[i] -> getGlobalBounds())){
-            player -> setPosition(player -> prev_x, player -> prev_y);}
+  //          player -> setPosition(player -> prev_x, player -> prev_y);}
+            }
     }
 
     //check for mob collision
@@ -112,7 +113,7 @@ void initialize_grid_lines(){
 //updates canvas
 void draw_all(){
     window.clear(sf::Color(0, 0, 0, 255));
-//    draw_lines();
+    draw_lines();
     draw_map();
     draw_player();
     draw_mobs();
@@ -124,30 +125,34 @@ void initialize_map(){
     for(size_t i = 0; i <= window_x / 16; i++){
         Tile * tile = new Tile(i * 16, window_y - 16, "ground_tile.png");
         hard_blocks.push_back(tile);}
-    for (size_t i = 0; i <= window_x/16; i++){
-	for (size_t j = 0; j <= window_y/16; j++){
-	    Tile * tile = new Tile(i*16, j*16, "sky_tile.png");
-	    soft_blocks.push_back(tile);}
+/*
+    for (size_t i = 0; i <= window_x / 16; i++){
+        for (size_t j = 0; j < window_y / 16; j++){
+            Tile * tile = new Tile(i * 16, j * 16, "sky_tile.png");
+            soft_blocks.push_back(tile);}
     }
+    */
 }
 
 //draw_all helper function
 void draw_map(){
     for(size_t i = 0; i < soft_blocks.size(); i++){
-	window.draw(*(soft_blocks[i]));}
+        window.draw(*(soft_blocks[i]));}
     for(size_t i = 0; i < hard_blocks.size(); i++){
         window.draw(*(hard_blocks[i]));}
 }
 
 //draw hit_boxes and grid_lines
 void draw_lines(){
+    if(debug_on){
     for(size_t i = 0; i < x_lines_v.size(); i++){
         window.draw(x_lines_v[i]);
         window.draw(y_lines_v[i]);
-        if(i < 4 && debug_on){
+        if(i < 4){
             //debug use
             window.draw(player -> hit_box[i]);}
         }
+    }
 }
 
 //draw mob sprites
@@ -190,37 +195,38 @@ void system_events(){
 //keyboard inputs (pressed)
 void key_pressed_events(){
     if(event.key.code == sf::Keyboard::Left){
-        move_sprite(*player, x_vel, y_vel, -4,0, -5, window_x, window_y);
+        move_sprite(*player, x_vel, y_vel, -4, 0);
         flip_sprite_left(*player);}
 
     else if(event.key.code == sf::Keyboard::Right){
-        move_sprite(*player, x_vel, y_vel, 4,0, 5, window_x, window_y);
+        move_sprite(*player, x_vel, y_vel, 4, 0);
         flip_sprite_right(*player);}
 
-    else if (event.key.code == sf::Keyboard::Up && grounded == 1){
-	y_vel = -5;
-	move_sprite(*player, x_vel, y_vel, 0,0,5, window_x, window_y);
-	grounded = 0;}
+    else if (event.key.code == sf::Keyboard::Up && grounded){
+        y_vel = -5;
+        grounded = false;
+        move_sprite(*player, x_vel, y_vel, 0, 0);}
 }
 
 //keyboard inputs (release)
 void key_released_events(){
-    
    if(event.key.code == sf::Keyboard::Left){
-        stop_sprite_x(*player, x_vel, .5, window_x);}
+        stop_sprite_x(*player, x_vel, .5);}
 
    else if(event.key.code == sf::Keyboard::Right){
-        stop_sprite_x(*player, x_vel, .5, window_x);}
+        stop_sprite_x(*player, x_vel, .5);}
+
+   else if(event.key.code == sf::Keyboard::Up){
+       stop_sprite_y(*player, y_vel, .5);}
 }
 
 void gravity(){
-	if (grounded == 0){
- 	     move_sprite(*player, x_vel, y_vel, 0,1 , 5, window_x, window_y);
-             sf::Vector2f pos = player -> getPosition();
-	     if (pos.y <= window_y - player->sprite_height - hard_blocks[0]->sprite_height-1){
-		player->setPosition(pos.x, window_y - player->sprite_height - hard_blocks[0]->sprite_height-1);
-	    	grounded = 1;
-		stop_sprite_y(*player, y_vel, .5, window_y);}}
+    move_sprite(*player, x_vel, y_vel, 0, 1);
+    sf::Vector2f pos = player -> getPosition();
+
+    if(pos.y >= window_y - player -> sprite_height - hard_blocks[0] -> sprite_height){
+       grounded = true;
+       player -> setPosition(pos.x + x_vel, window_y - player -> sprite_height - hard_blocks[0] -> sprite_height - 1);}
 }
 
 

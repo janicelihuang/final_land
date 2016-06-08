@@ -1,7 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "extended_sprite.cpp"
-
 class Slime: public Extended_Sprite{
     public:
         int sin_degree;

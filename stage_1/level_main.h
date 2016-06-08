@@ -36,7 +36,7 @@ using namespace std;
 
     int x_vel = 0;
     int y_vel = 0;
-    bool grounded = 1;
+    bool grounded = true;
     bool debug_on = false;
 
 //for_debug
@@ -103,10 +103,12 @@ using namespace std;
                     key_released_events();}
             }
                 move_slimes();
-		gravity();
+                if(!grounded)
+                    gravity();
                 check_sprite_bounds();
                 for_debug();
                 draw_all();
+                std::cout << x_vel << std::endl;
         }
         return EXIT_SUCCESS;
     };

@@ -32,7 +32,8 @@
 - changed chance of x-axis slime movement to 10%
 - added prev_x and prev_y fields to Extended_Sprite class 
     + for sprite collisions: at intersection, revert to original position
-
-<<6/7/2016>>
 - changed vertical movement to implement jumping, still buggy
 - added gravity function that is falled each frame, ground detection needs fixing
+
+- fixed jumping, but needs polishing
+- NOTE: must clean up code
