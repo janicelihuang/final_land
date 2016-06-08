@@ -36,6 +36,7 @@ using namespace std;
 
     int x_vel = 0;
     int y_vel = 0;
+    bool grounded = 1;
     bool debug_on = false;
 
 //for_debug
@@ -76,6 +77,8 @@ using namespace std;
 
 //keyboard inputs (release)
     void key_released_events();
+
+    void gravity();
    
 //main function
     int main(){
@@ -100,6 +103,7 @@ using namespace std;
                     key_released_events();}
             }
                 move_slimes();
+		gravity();
                 check_sprite_bounds();
                 for_debug();
                 draw_all();

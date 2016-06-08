@@ -112,10 +112,10 @@ void initialize_grid_lines(){
 //updates canvas
 void draw_all(){
     window.clear(sf::Color(0, 0, 0, 255));
-    draw_lines();
+//    draw_lines();
+    draw_map();
     draw_player();
     draw_mobs();
-    draw_map();
     window.display();
 }
 
@@ -124,10 +124,17 @@ void initialize_map(){
     for(size_t i = 0; i <= window_x / 16; i++){
         Tile * tile = new Tile(i * 16, window_y - 16, "ground_tile.png");
         hard_blocks.push_back(tile);}
+    for (size_t i = 0; i <= window_x/16; i++){
+	for (size_t j = 0; j <= window_y/16; j++){
+	    Tile * tile = new Tile(i*16, j*16, "sky_tile.png");
+	    soft_blocks.push_back(tile);}
+    }
 }
 
 //draw_all helper function
 void draw_map(){
+    for(size_t i = 0; i < soft_blocks.size(); i++){
+	window.draw(*(soft_blocks[i]));}
     for(size_t i = 0; i < hard_blocks.size(); i++){
         window.draw(*(hard_blocks[i]));}
 }
@@ -190,12 +197,10 @@ void key_pressed_events(){
         move_sprite(*player, x_vel, y_vel, 4,0, 5, window_x, window_y);
         flip_sprite_right(*player);}
 
-    else if(event.key.code == sf::Keyboard::Down){
-        move_sprite(*player, x_vel, y_vel,0, 2, 5, window_x, window_y);}
- 
-    else if(event.key.code == sf::Keyboard::Up){
-        move_sprite(*player, x_vel, y_vel,0, -2,- 5, window_x, window_y);}
-    
+    else if (event.key.code == sf::Keyboard::Up && grounded == 1){
+	y_vel = -5;
+	move_sprite(*player, x_vel, y_vel, 0,0,5, window_x, window_y);
+	grounded = 0;}
 }
 
 //keyboard inputs (release)
@@ -206,13 +211,16 @@ void key_released_events(){
 
    else if(event.key.code == sf::Keyboard::Right){
         stop_sprite_x(*player, x_vel, .5, window_x);}
-
-   else if(event.key.code == sf::Keyboard::Up){
-        stop_sprite_y(*player, y_vel, .5, window_y);}
- 
-   else if(event.key.code == sf::Keyboard::Down){
-        stop_sprite_y(*player, y_vel, .5, window_y);} 
 }
 
+void gravity(){
+	if (grounded == 0){
+ 	     move_sprite(*player, x_vel, y_vel, 0,1 , 5, window_x, window_y);
+             sf::Vector2f pos = player -> getPosition();
+	     if (pos.y <= window_y - player->sprite_height - hard_blocks[0]->sprite_height-1){
+		player->setPosition(pos.x, window_y - player->sprite_height - hard_blocks[0]->sprite_height-1);
+	    	grounded = 1;
+		stop_sprite_y(*player, y_vel, .5, window_y);}}
+}
 
 
