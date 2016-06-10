@@ -31,13 +31,10 @@ void move_slimes(){
 
     for(size_t i = 0; i < slimes.size(); i++){
         pos = slimes[i] -> getPosition();
-        slimes[i] -> move_slime(hard_blocks, window_y);
-    }
+        slimes[i] -> move_slime(hard_blocks, window_y);}
 
-    //slimes follow player
     for(size_t i = 0; i < slimes.size(); i++){
-        slimes[i] -> slime_track(*player);
-    }
+        slimes[i] -> slime_track(*player);}
 }
 
 //check if sprites move off the screen
@@ -78,7 +75,9 @@ void check_sprite_bounds(){
 
 //draw grid lines
 void initialize_grid_lines(){
+    stage.initialize_grid_lines();
 
+/*
     for(size_t i = 0; i < window_x / 10; i++){
         if(i < window_y){
             y_lines_v.push_back(sf::VertexArray(sf::Lines, 2));}
@@ -97,6 +96,7 @@ void initialize_grid_lines(){
         y_lines_v[i][0] = sf::Vector2f(0, grid_counter);
         y_lines_v[i][1] = sf::Vector2f(window_x, grid_counter);
         grid_counter += window_y / 40;}
+        */
 }
 
 //updates canvas
@@ -111,6 +111,8 @@ void draw_all(){
 
 //initialize tiles
 void initialize_map(){
+    stage.initialize_tiles();
+    /*
     for(size_t i = 0; i <= window_x / 16; i++){
         Tile * tile = new Tile(i * 16, window_y - 16, "ground_tile.png");
         hard_blocks.push_back(tile);}
@@ -120,6 +122,7 @@ void initialize_map(){
             Tile * tile = new Tile(i * 16, j * 16, "sky_tile.png");
             soft_blocks.push_back(tile);}
     }
+    */
 }
 
 //draw_all helper function
@@ -139,10 +142,9 @@ void draw_lines(){
         for(size_t i = 0; i < x_lines_v.size(); i++){
             window.draw(x_lines_v[i]);
             window.draw(y_lines_v[i]);
-            if(i < 4){
+            if(i < 4)
                 //debug use
                 window.draw(player -> hit_box[i]);}
-            }
     }
 }
 
@@ -216,6 +218,7 @@ void key_released_events(){
        stop_sprite_y(*player, y_vel, .5);}
 }
 
+//gravity function
 void gravity(){
     move_sprite(*player, x_vel, y_vel, 0, 1);
     sf::Vector2f pos = player -> getPosition();

@@ -39,4 +39,3 @@ class Slime: public Extended_Sprite{
                 setPosition(pos.x + result[0], pos.y);}
         }
 };
-

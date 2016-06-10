@@ -11,21 +11,24 @@
 #include "dark_adept.cpp"
 #include "slime.cpp"
 #include "extended_sprite.cpp"
+#include "stage.cpp"
 using namespace std;
+
     int window_x = 1000;
     int window_y = 650;
 
     sf::Event event; 
     sf::RenderWindow window(sf::VideoMode(window_x, window_y), "Stage_1");
-    std::vector<Tile *> hard_blocks;
-    std::vector<Tile *> soft_blocks;
+    Stage stage = Stage(window_x, window_y);
+
+    //std::vector<Tile *> hard_blocks;
+    //std::vector<Tile *> soft_blocks;
 
     Dark_Adept * player = new Dark_Adept();
     std::vector<Slime *> slimes;
 
-    float grid_counter = 0;
-    std::vector<sf::VertexArray> x_lines_v;
-    std::vector<sf::VertexArray> y_lines_v;
+    //std::vector<sf::VertexArray> x_lines_v;
+    //std::vector<sf::VertexArray> y_lines_v;
 
     int x_vel = 0;
     int y_vel = 0;

@@ -5,6 +5,10 @@ class Tile: public sf::Sprite{
       sf::FloatRect scale;
       int sprite_width, sprite_height;
         
+        Tile(){
+            sprite_width = sprite_height = 0;
+        }
+
         Tile(int x, int y, std::string new_texture){
             texture.loadFromFile(new_texture);
             setTexture(texture);

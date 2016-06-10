@@ -42,3 +42,12 @@
 - Added Debug Switch: (Num1) 
     + pressing Num1 will switch debug-mode on/off
 - divided logic of move_slime() amongst slime objects (slime.cpp)
+
+<<6/9/2016>>
+- created stage.cpp 
+    + moved initalize_grid_lines() and initialize_tiles() (originally initialize_map()) from level_main.cpp to stages.cpp
+    + includes the following fields:
+        + tiles: vector of vector of Tile pointers
+        + block_hardness: vector of vector of bool  
+        + x_lines_v, y_lines_v from level_main.h (for grid lines)
+        + moved grid_counter from level_main.cpp
