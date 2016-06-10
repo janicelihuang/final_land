@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include <zlib.h>
 #include <iostream>
 #include <vector>
 #include "keyboard.cpp"
@@ -18,24 +17,20 @@ using namespace std;
     int window_y = 650;
 
     sf::Event event; 
+    sf::Clock c_t;
     sf::RenderWindow window(sf::VideoMode(window_x, window_y), "Stage_1");
-    Stage stage = Stage(window_x, window_y);
 
-    //std::vector<Tile *> hard_blocks;
-    //std::vector<Tile *> soft_blocks;
+    Stage stage = Stage(window_x, window_y);
 
     Dark_Adept * player = new Dark_Adept();
     std::vector<Slime *> slimes;
-
-    //std::vector<sf::VertexArray> x_lines_v;
-    //std::vector<sf::VertexArray> y_lines_v;
 
     int x_vel = 0;
     int y_vel = 0;
     bool grounded = true;
     bool debug_on = false;
 
-//for_debug
+//debug logic
     void for_debug();
 
 //update position of mobs

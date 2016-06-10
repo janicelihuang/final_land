@@ -53,3 +53,10 @@
         + moved grid_counter from level_main.cpp
 - added h file for Tile class 
 - NOTE: hard_blocks and soft_blocks are still in level_main.cpp, need to be replaced by tiles in stages.cpp
+
+<<6/10/16>>
+- added hard_blocks and soft_blocks to stages.cpp
+    + tiles used for collisions
+    + hard/soft_block vectors used for draw_map()
+
+NOTE: blocks offset by 1, should fix soon

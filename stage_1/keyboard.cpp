@@ -6,10 +6,10 @@ void move_sprite(sf::Sprite & sprite, int & x_vel, int & y_vel, int x_acc, int y
     sprite.move(x_vel, y_vel);
     x_vel += x_acc;
     y_vel += y_acc;
-    if(x_vel > 0 && x_vel > 5)
-        x_vel = 5;
-    else if(x_vel < 0 && x_vel < -5)
-        x_vel = -5;
+    if(x_vel > 0 && x_vel > 6)
+        x_vel = 6;
+    else if(x_vel < 0 && x_vel < -6)
+        x_vel = -6;
 }
 
 void stop_sprite_x(sf::Sprite & sprite, int & x_vel, int accel){

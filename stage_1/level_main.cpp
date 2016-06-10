@@ -31,7 +31,7 @@ void move_slimes(){
 
     for(size_t i = 0; i < slimes.size(); i++){
         pos = slimes[i] -> getPosition();
-        slimes[i] -> move_slime(hard_blocks, window_y);}
+        slimes[i] -> move_slime(stage.tiles[0], window_y);}
 
     for(size_t i = 0; i < slimes.size(); i++){
         slimes[i] -> slime_track(*player);}
@@ -56,47 +56,21 @@ void check_sprite_bounds(){
 
     pos = player -> getPosition();
 
-    for(size_t i = 0; i < hard_blocks.size(); i++){
-        if(player -> getGlobalBounds().intersects(hard_blocks[i] -> getGlobalBounds())){
-  //          player -> setPosition(player -> prev_x, player -> prev_y);}
-            }
-    }
+    //check for player collision
+    if(stage.tiles[(int)pos.y / ((window_y) / 16)][(int)pos.x / ((window_x) / 16)] -> getGlobalBounds().intersects(player -> getGlobalBounds()))
+         player -> setPosition(player -> prev_x, player -> prev_y);
 
     //check for mob collision
-    
-    for(size_t i = 0; i < hard_blocks.size(); i++){
-        for(size_t j = 0; j < slimes.size(); j++){
-            if(hard_blocks[i] -> getGlobalBounds().intersects(slimes[j] -> getGlobalBounds())){
-                slimes[j] -> setPosition(slimes[j] -> prev_x, slimes[j] -> prev_y);}
-        }
+    for(size_t i = 0; i < slimes.size(); i++){
+        pos = slimes[i] -> getPosition();
+        if(stage.tiles[(int)pos.y / ((window_y) / 16)][(int)pos.x / ((window_x) / 16)] -> getGlobalBounds().intersects(slimes[i] -> getGlobalBounds()))
+             slimes[i] -> setPosition(slimes[i] -> prev_x, slimes[i] -> prev_y);
     }
-    
 }
 
 //draw grid lines
 void initialize_grid_lines(){
     stage.initialize_grid_lines();
-
-/*
-    for(size_t i = 0; i < window_x / 10; i++){
-        if(i < window_y){
-            y_lines_v.push_back(sf::VertexArray(sf::Lines, 2));}
-        x_lines_v.push_back(sf::VertexArray(sf::Lines, 2));}
-
-    grid_counter = 0;
-
-    for(size_t i = 0; i < x_lines_v.size(); i += 2){
-        x_lines_v[i][0] = sf::Vector2f(grid_counter, 0);
-        x_lines_v[i][1] = sf::Vector2f(grid_counter, window_y);
-        grid_counter += window_x / 50;}
-
-    grid_counter = 0;
-
-    for(size_t i = 0; i < y_lines_v.size(); i++){
-        y_lines_v[i][0] = sf::Vector2f(0, grid_counter);
-        y_lines_v[i][1] = sf::Vector2f(window_x, grid_counter);
-        grid_counter += window_y / 40;}
-        */
 }
 
 //updates canvas
@@ -112,36 +86,25 @@ void draw_all(){
 //initialize tiles
 void initialize_map(){
     stage.initialize_tiles();
-    /*
-    for(size_t i = 0; i <= window_x / 16; i++){
-        Tile * tile = new Tile(i * 16, window_y - 16, "ground_tile.png");
-        hard_blocks.push_back(tile);}
-
-    for (size_t i = 0; i <= window_x / 16; i++){
-        for (size_t j = 0; j < window_y / 16; j++){
-            Tile * tile = new Tile(i * 16, j * 16, "sky_tile.png");
-            soft_blocks.push_back(tile);}
-    }
-    */
 }
 
 //draw_all helper function
 void draw_map(){
     if(!debug_on){
-        for(size_t i = 0; i < soft_blocks.size(); i++){
-            window.draw(*(soft_blocks[i]));}
+        for(size_t i = 0; i < stage.soft_blocks.size(); i++){
+            window.draw(*(stage.soft_blocks[i]));}
     }
 
-    for(size_t i = 0; i < hard_blocks.size(); i++){
-        window.draw(*(hard_blocks[i]));}
+    for(size_t i = 0; i < stage.hard_blocks.size(); i++){
+        window.draw(*(stage.hard_blocks[i]));}
 }
 
 //draw hit_boxes and grid_lines
 void draw_lines(){
     if(debug_on){
-        for(size_t i = 0; i < x_lines_v.size(); i++){
-            window.draw(x_lines_v[i]);
-            window.draw(y_lines_v[i]);
+        for(size_t i = 0; i < stage.x_lines_v.size(); i++){
+            window.draw(stage.x_lines_v[i]);
+            window.draw(stage.y_lines_v[i]);
             if(i < 4)
                 //debug use
                 window.draw(player -> hit_box[i]);}
@@ -167,14 +130,14 @@ void draw_player(){
 
 //initializes square (user)
 void initialize_player(){
-    player -> setPosition(20, window_y - player -> sprite_height - hard_blocks[0] -> sprite_height - 1);
+    player -> setPosition(20, window_y - player -> sprite_height - stage.hard_blocks[0] -> sprite_height - 1);
 }
 
 //initializes mobs
 void initialize_mobs(){
     for(int i = 0; i < 5; i++){
         Slime *slime = new Slime();
-        slime -> setPosition(rand() % window_x, window_y - slime -> sprite_height - hard_blocks[0] -> sprite_height - 1);
+        slime -> setPosition(rand() % window_x, window_y - slime -> sprite_height - stage.hard_blocks[0] -> sprite_height - 1);
         slimes.push_back(slime);}
 }
 
@@ -197,7 +160,7 @@ void key_pressed_events(){
         flip_sprite_right(*player);}
 
     else if (event.key.code == sf::Keyboard::Up && grounded){
-        y_vel = -5;
+        y_vel = -6;
         grounded = false;
         move_sprite(*player, x_vel, y_vel, 0, 0);}
 
@@ -223,9 +186,9 @@ void gravity(){
     move_sprite(*player, x_vel, y_vel, 0, 1);
     sf::Vector2f pos = player -> getPosition();
 
-    if(pos.y >= window_y - player -> sprite_height - hard_blocks[0] -> sprite_height){
+    if(pos.y >= window_y - player -> sprite_height - stage.hard_blocks[0] -> sprite_height){
        grounded = true;
-       player -> setPosition(pos.x + x_vel, window_y - player -> sprite_height - hard_blocks[0] -> sprite_height - 1);}
+       player -> setPosition(pos.x + x_vel, window_y - player -> sprite_height - stage.hard_blocks[0] -> sprite_height - 1);}
 }
 
 
