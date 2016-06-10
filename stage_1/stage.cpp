@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "tile.cpp"
+#include "tile.h"
 
 class Stage{
     public:

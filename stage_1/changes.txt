@@ -51,3 +51,5 @@
         + block_hardness: vector of vector of bool  
         + x_lines_v, y_lines_v from level_main.h (for grid lines)
         + moved grid_counter from level_main.cpp
+- added h file for Tile class 
+- NOTE: hard_blocks and soft_blocks are still in level_main.cpp, need to be replaced by tiles in stages.cpp
