@@ -66,6 +66,7 @@ void check_sprite_bounds(){
         if(stage.tiles[(int)pos.y / ((window_y) / 16)][(int)pos.x / ((window_x) / 16)] -> getGlobalBounds().intersects(slimes[i] -> getGlobalBounds()))
              slimes[i] -> setPosition(slimes[i] -> prev_x, slimes[i] -> prev_y);
     }
+    std::cout << stage.tiles[0][0] -> sprite_width << std::endl;
 }
 
 //draw grid lines
@@ -165,7 +166,6 @@ void key_pressed_events(){
         move_sprite(*player, x_vel, y_vel, 0, 0);}
 
     if(event.key.code == sf::Keyboard::Num1){
-        std::cout << debug_on << std::endl;
         debug_on = !debug_on;}
 }
 
