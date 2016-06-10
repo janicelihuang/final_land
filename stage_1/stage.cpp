@@ -19,11 +19,9 @@ class Stage{
             this -> window_y = window_y;
 
             std::vector<Tile *> temp_v;
-            std::vector<bool> temp_b;
             for(size_t i = 0; i <= window_y / 16; i++){
                 for(size_t j = 0; j <= window_x / 16; j++){
-                    temp_v.push_back(new Tile());
-                    temp_b.push_back(0);}
+                    temp_v.push_back(new Tile());}
                 tiles.push_back(temp_v);
                 temp_v.clear();
             }
@@ -31,12 +29,12 @@ class Stage{
 
         void initialize_tiles(){
             for(size_t j = 0; j <= window_x / 16; j++){
-                tiles[0][j] = new Tile(j * 16, window_y - 16, "ground_tile.png");
+                tiles[0][j] = new Tile(j * 16, window_y - 16, "ground_tile.png", 1);
                 hard_blocks.push_back(tiles[0][j]);}
 
-            for (size_t i = 1; i <= window_y / 16; i++){
-                for (size_t j = 0; j < window_x / 16; j++){
-                    tiles[i][j] = new Tile(j * 16, i * 16, "sky_tile.png");
+            for (size_t i = 0; i < window_y / 16; i++){
+                for (size_t j = 0; j <= window_x / 16; j++){
+                    tiles[i][j] = new Tile(j * 16, i * 16, "sky_tile.png", 0);
                     soft_blocks.push_back(tiles[i][j]);}
             }
 

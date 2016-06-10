@@ -5,11 +5,12 @@
 
 class Tile: public sf::Sprite{
      public:
-          sf::Texture texture;
-  	  sf::FloatRect scale;
-          int sprite_width, sprite_height;
+        sf::Texture texture;
+        sf::FloatRect scale;
+        int sprite_width, sprite_height;
+        bool block_hardness;
 
 	  Tile();
-	  Tile(int x, int y, std::string new_texture);
+	  Tile(int x, int y, std::string new_texture, bool block_hardness);
 };
 #endif
