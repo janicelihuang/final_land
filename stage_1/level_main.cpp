@@ -66,7 +66,6 @@ void check_sprite_bounds(){
         if(stage.tiles[(int)pos.y / ((window_y) / 16)][(int)pos.x / ((window_x) / 16)] -> getGlobalBounds().intersects(slimes[i] -> getGlobalBounds()))
              slimes[i] -> setPosition(slimes[i] -> prev_x, slimes[i] -> prev_y);
     }
-    std::cout << stage.tiles[0][0] -> sprite_width << std::endl;
 }
 
 //draw grid lines

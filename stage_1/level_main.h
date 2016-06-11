@@ -14,7 +14,7 @@
 using namespace std;
 
     int window_x = 1000;
-    int window_y = 650;
+    int window_y = 600;
 
     sf::Event event; 
     sf::Clock c_t;
