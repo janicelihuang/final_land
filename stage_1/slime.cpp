@@ -14,7 +14,7 @@ class Slime: public Extended_Sprite{
             direction = rand() % 1;
             texture.loadFromFile("slime.png");
             setTexture(texture);
-            setScale(.4, .4);
+            setScale(.25, .25);
             scale = getGlobalBounds();
             sprite_x = scale.left;
             sprite_y = scale.top;

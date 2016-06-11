@@ -59,3 +59,6 @@
     + tiles used for collisions
     + hard/soft_block vectors used for draw_map()
 - replaced 2d vector block_hardness in stage.cpp with boolean field in Tile class
+
+<<6/11/16>>
+- changed scale of sprites to (.25, .25)
