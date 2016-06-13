@@ -31,12 +31,15 @@ class Stage{
             for(size_t j = 0; j <= window_x / 16; j++){
                 tiles[0][j] = new Tile(j * 16, window_y - 16, "ground_tile.png", 1);
                 hard_blocks.push_back(tiles[0][j]);}
-
+/*
             for (size_t i = 0; i < window_y / 16; i++){
                 for (size_t j = 0; j <= window_x / 16; j++){
                     tiles[i][j] = new Tile(j * 16, i * 16, "sky_tile.png", 0);
                     soft_blocks.push_back(tiles[i][j]);}
             }
+            */
+            tiles[1][0] = new Tile(0, 0, "sky.png", 0);
+            soft_blocks.push_back(tiles[1][0]);
         }
 
         void initialize_grid_lines(){
