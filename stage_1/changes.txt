@@ -62,3 +62,8 @@
 
 <<6/11/16>>
 - changed scale of sprites to (.25, .25)
+
+<<6/13/16>>
+- in level_main.cpp:
+    + moved logic of for_debug() function into hit_box_main() function in utils.cpp
+    + moved logic of check_sprite_bounds() function to utils.cpp

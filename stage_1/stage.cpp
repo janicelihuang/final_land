@@ -37,7 +37,6 @@ class Stage{
                     tiles[i][j] = new Tile(j * 16, i * 16, "sky_tile.png", 0);
                     soft_blocks.push_back(tiles[i][j]);}
             }
-
         }
 
         void initialize_grid_lines(){

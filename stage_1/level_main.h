@@ -39,14 +39,14 @@ using namespace std;
 //check if sprites move off the screen TODO: y-direction
     void check_sprite_bounds();
 
-//draw grid lines
-    void initialize_grid_lines();
-
 //updates canvas
     void draw_all();
 
 //initalize_map
     void initialize_map();
+
+//inittialize grid_lines
+    void initialize_grid_lines();
 
 //draw_all helper functions
     void draw_lines();
@@ -75,9 +75,9 @@ using namespace std;
     int main(){
         srand(time(NULL));
         initialize_map();
-        initialize_grid_lines();
         initialize_player();
         initialize_mobs();
+        initialize_grid_lines();
 
         while(window.isOpen()){
             event = sf::Event();

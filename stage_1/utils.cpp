@@ -30,23 +30,41 @@ void flip_sprite_right(Extended_Sprite & sprite){
 }
 
 //DEBUG PURPOSES//
+
 void generate_hit_boxes(Extended_Sprite & sprite, std::vector<sf::VertexArray> & hit_box){
     sf::FloatRect sprite_scale = sprite.scale;
     hit_box[0][0].position = hit_box[3][1].position = sf::Vector2f(sprite_scale.left, sprite_scale.top);
     hit_box[0][1].position =  hit_box[1][0].position = sf::Vector2f(sprite_scale.left + sprite_scale.width, sprite_scale.top);
            
-    //hit_box[1][0].position = sf::Vector2f(sprite_scale.left + sprite_scale.width, sprite_scale.top);
     hit_box[1][1].position =  hit_box[2][0].position = sf::Vector2f(sprite_scale.left + sprite_scale.width, sprite_scale.top + sprite_scale.height);
                
-    //hit_box[2][0].position = sf::Vector2f(sprite_scale.left + sprite_scale.width, sprite_scale.top + sprite_scale.height);
     hit_box[2][1].position = hit_box[3][0].position = sf::Vector2f(sprite_scale.left, sprite_scale.top + sprite_scale.height);
            
-    //hit_box[3][0].position = sf::Vector2f(sprite_scale.left, sprite_scale.top + sprite_scale.height);
-    //hit_box[3][1].position = sf::Vector2f(sprite_scale.left, sprite_scale.top);
-                   
      for(size_t i = 0; i < 4; i++){
        hit_box[i][0].color =
          hit_box[i][1].color = sf::Color::Green;}
+
+}
+
+template<typename T>
+void hit_box_main(Extended_Sprite & player, std::vector<T *> & mobs){
+    for(size_t i = 0; i < mobs.size(); i++){
+        mobs[i] -> hit_box.clear();
+        mobs[i] -> update_bounds();}
+    player.hit_box.clear();
+    player.update_bounds();
+
+    for(size_t i = 0; i < 4; i++){
+        player.hit_box.push_back(sf::VertexArray(sf::Lines, 2));}
+    for(size_t i = 0; i < mobs.size(); i++){
+        for(size_t j = 0; j < 4; j++){
+            mobs[i] -> hit_box.push_back(sf::VertexArray(sf::Lines, 2));}
+    }
+
+    for(size_t i = 0; i < mobs.size(); i++){
+       generate_hit_boxes(*(mobs[i]), mobs[i] -> hit_box);}
+    
+    generate_hit_boxes(player, player.hit_box);
 
 }
 
@@ -65,4 +83,35 @@ std::vector<int> guided_mob_movement(Extended_Sprite & player, Extended_Sprite &
     else{
         ret.push_back(0);}
     return ret;
+}
+
+template<class M, class T>
+void check_sprite_bounds_utils(Extended_Sprite & player, std::vector<M *> & mobs, std::vector<std::vector<T *> > & tiles, int window_x, int window_y){
+    int sprite_width_var = player.sprite_width;
+    int sprite_height_var = player.sprite_height;
+    sf::Vector2f pos = player.getPosition();
+
+    //restrict player sprite movement
+    if(pos.x - sprite_width_var <= 0){
+        player.setPosition(sprite_width_var, pos.y);}
+    else if(pos.x + sprite_width_var >= window_x){
+        player.setPosition(window_x - player.sprite_width, pos.y);}
+
+    if(pos.y + sprite_height_var >= window_y){
+        player.setPosition(pos.x, window_y - sprite_height_var);}
+    else if(pos.y <= 0){
+        player.setPosition(pos.x, 0);}
+
+    pos = player.getPosition();
+
+    //check for player collision
+    if(tiles[(int)pos.y / ((window_y) / 16)][(int)pos.x / ((window_x) / 16)] -> getGlobalBounds().intersects(player.getGlobalBounds()))
+         player.setPosition(player.prev_x, player.prev_y);
+
+    //check for mob collision
+    for(size_t i = 0; i < mobs.size(); i++){
+        pos = mobs[i] -> getPosition();
+        if(tiles[(int)pos.y / ((window_y) / 16)][(int)pos.x / ((window_x) / 16)] -> getGlobalBounds().intersects(mobs[i] -> getGlobalBounds()))
+             mobs[i] -> setPosition(mobs[i] -> prev_x, mobs[i] -> prev_y);
+    }
 }

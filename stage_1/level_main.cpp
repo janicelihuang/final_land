@@ -5,26 +5,12 @@
 
 using namespace std;
 
+//debug function calls here, draw functions in draw_all()
 void for_debug(){
-    for(size_t i = 0; i < slimes.size(); i++){
-        slimes[i] -> hit_box.clear();
-        slimes[i] -> update_bounds();}
-    player -> hit_box.clear();
-    player -> update_bounds();
-
-    for(size_t i = 0; i < 4; i++){
-        player -> hit_box.push_back(sf::VertexArray(sf::Lines, 2));}
-    for(size_t i = 0; i < slimes.size(); i++){
-        for(size_t j = 0; j < 4; j++){
-            slimes[i] -> hit_box.push_back(sf::VertexArray(sf::Lines, 2));}
-    }
-
-    for(size_t i = 0; i < slimes.size(); i++){
-       generate_hit_boxes(*(slimes[i]), slimes[i] -> hit_box);}
-    
-    generate_hit_boxes(*player, player -> hit_box);
+    hit_box_main(*player, slimes);
 }
 
+//place mob movement functions in here
 void move_slimes(){
     sf::Vector2f pos = sf::Vector2f();
     std::vector<int> original_y_pos;
@@ -39,38 +25,7 @@ void move_slimes(){
 
 //check if sprites move off the screen
 void check_sprite_bounds(){
-    int sprite_width_var = player -> sprite_width;
-    int sprite_height_var = player -> sprite_height;
-    sf::Vector2f pos = player -> getPosition();
-
-    //restrict player sprite movement
-    if(pos.x - sprite_width_var <= 0){
-        player -> setPosition(sprite_width_var, pos.y);}
-    else if(pos.x + sprite_width_var >= window_x){
-        player -> setPosition(window_x - player -> sprite_width, pos.y);}
-
-    if(pos.y + sprite_height_var >= window_y){
-        player -> setPosition(pos.x, window_y - sprite_height_var);}
-    else if(pos.y <= 0){
-        player -> setPosition(pos.x, 0);}
-
-    pos = player -> getPosition();
-
-    //check for player collision
-    if(stage.tiles[(int)pos.y / ((window_y) / 16)][(int)pos.x / ((window_x) / 16)] -> getGlobalBounds().intersects(player -> getGlobalBounds()))
-         player -> setPosition(player -> prev_x, player -> prev_y);
-
-    //check for mob collision
-    for(size_t i = 0; i < slimes.size(); i++){
-        pos = slimes[i] -> getPosition();
-        if(stage.tiles[(int)pos.y / ((window_y) / 16)][(int)pos.x / ((window_x) / 16)] -> getGlobalBounds().intersects(slimes[i] -> getGlobalBounds()))
-             slimes[i] -> setPosition(slimes[i] -> prev_x, slimes[i] -> prev_y);
-    }
-}
-
-//draw grid lines
-void initialize_grid_lines(){
-    stage.initialize_grid_lines();
+    check_sprite_bounds_utils(*player, slimes, stage.tiles, window_x, window_y);
 }
 
 //updates canvas
@@ -81,6 +36,10 @@ void draw_all(){
     draw_player();
     draw_mobs();
     window.display();
+}
+
+void initialize_grid_lines(){
+    stage.initialize_grid_lines();
 }
 
 //initialize tiles
