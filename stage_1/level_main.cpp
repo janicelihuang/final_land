@@ -119,7 +119,7 @@ void key_pressed_events(){
         flip_sprite_right(*player);}
 
     else if (event.key.code == sf::Keyboard::Up && grounded){
-        y_vel = -6;
+        y_vel = -20;
         grounded = false;
         move_sprite(*player, x_vel, y_vel, 0, 0);}
 

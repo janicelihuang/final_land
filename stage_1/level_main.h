@@ -3,7 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
 #include "keyboard.cpp"
@@ -13,11 +12,10 @@
 #include "stage.cpp"
 using namespace std;
 
-    int window_x = 1000;
-    int window_y = 600;
+    int window_x = 1280;
+    int window_y = 640;
 
     sf::Event event; 
-    sf::Clock c_t;
     sf::RenderWindow window(sf::VideoMode(window_x, window_y), "Stage_1");
 
     Stage stage = Stage(window_x, window_y);

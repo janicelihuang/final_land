@@ -3,7 +3,7 @@
 
 class Stage{
     public:
-        std::vector<std::vector<Tile *> > tiles; 
+        std::vector<std::vector<Tile *> > tiles;        //let [i][j] correspond to rectangular coord. with origin being bottom left
         std::vector<std::vector<bool> > block_hardness;  //0 for soft, 1 for hard
         std::vector<sf::VertexArray> x_lines_v;
         std::vector<sf::VertexArray> y_lines_v;
@@ -28,18 +28,35 @@ class Stage{
         }
 
         void initialize_tiles(){
-            for(size_t j = 0; j <= window_x / 16; j++){
-                tiles[0][j] = new Tile(j * 16, window_y - 16, "ground_tile.png", 1);
-                hard_blocks.push_back(tiles[0][j]);}
-/*
-            for (size_t i = 0; i < window_y / 16; i++){
-                for (size_t j = 0; j <= window_x / 16; j++){
-                    tiles[i][j] = new Tile(j * 16, i * 16, "sky_tile.png", 0);
-                    soft_blocks.push_back(tiles[i][j]);}
+            srand(time(NULL));
+            tiles[0][0] = new Tile(0, window_y - 16, "ground_tile.png", 1);             //initialize first block
+            hard_blocks.push_back(tiles[0][0]);
+
+            int block_height = tiles[0][0] -> sprite_height;
+
+            for(size_t j = 1; j <= window_x / 16; j++){
+                if((rand() % 10) + 1 >= 6 + (int)(tiles[1][j - 1] -> block_hardness)){
+                    delete tiles[1][j];
+                    delete tiles[0][j];
+                    tiles[1][j] = new Tile(j * 16, window_y - 2 * block_height, "ground_tile.png", 1);      //50% chance of raised ground + previous block
+                    tiles[0][j] = new Tile(j * 16, window_y - block_height, "dirt.png", 1);
+                    hard_blocks.push_back(tiles[1][j]);
+                    hard_blocks.push_back(tiles[0][j]);} 
+
+                else{
+                    delete tiles[0][j];
+                    tiles[0][j] = new Tile(j * 16, window_y - block_height, "ground_tile.png", 1);
+                    hard_blocks.push_back(tiles[0][j]);}
             }
-            */
-            tiles[1][0] = new Tile(0, 0, "sky.png", 0);
-            soft_blocks.push_back(tiles[1][0]);
+
+            for (size_t i = 0 ; i <= window_y / 16; i++){
+                for (size_t j = 0; j <= window_x / 16; j++){
+                    if(tiles[i][j] -> block_hardness != 1){
+                        delete tiles[i][j];
+                        tiles[i][j] = new Tile(j * 16, window_y - (i + 1) * block_height, "sky_tile.png", 0);
+                        soft_blocks.push_back(tiles[i][j]);}
+                }
+            }
         }
 
         void initialize_grid_lines(){
@@ -63,8 +80,4 @@ class Stage{
                 y_lines_v[i][1] = sf::Vector2f(window_x, grid_counter);
                 grid_counter += window_y / 40;}
         }
-
-
-
-
 };

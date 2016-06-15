@@ -87,6 +87,7 @@ std::vector<int> guided_mob_movement(Extended_Sprite & player, Extended_Sprite &
 
 template<class M, class T>
 void check_sprite_bounds_utils(Extended_Sprite & player, std::vector<M *> & mobs, std::vector<std::vector<T *> > & tiles, int window_x, int window_y){
+
     int sprite_width_var = player.sprite_width;
     int sprite_height_var = player.sprite_height;
     sf::Vector2f pos = player.getPosition();
@@ -105,8 +106,8 @@ void check_sprite_bounds_utils(Extended_Sprite & player, std::vector<M *> & mobs
     pos = player.getPosition();
 
     //check for player collision
-    if(tiles[(int)pos.y / ((window_y) / 16)][(int)pos.x / ((window_x) / 16)] -> getGlobalBounds().intersects(player.getGlobalBounds()))
-         player.setPosition(player.prev_x, player.prev_y);
+    if(tiles[(int)(window_y - pos.y) / ((window_y) / 16)][(int)(pos.x) / ((window_x) / 16)] -> getGlobalBounds().intersects(player.getGlobalBounds())){
+        player.setPosition(player.prev_x, player.prev_y);}
 
     //check for mob collision
     for(size_t i = 0; i < mobs.size(); i++){

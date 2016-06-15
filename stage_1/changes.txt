@@ -67,3 +67,8 @@
 - in level_main.cpp:
     + moved logic of for_debug() function into hit_box_main() function in utils.cpp
     + moved logic of check_sprite_bounds() function to utils.cpp
+
+<<6/15/16>>
+- fixed tiling error (wasn't tiling only the empty spaces)
+- added dirt.png and implemented [crude] elevation generation function
+NOTE: must fix collisions (mapping indices to blocks
